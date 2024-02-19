@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
 
-
+// @ts-ignore: Implicit any for children prop
 const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const [progress, setProgress] = useState(0);
 

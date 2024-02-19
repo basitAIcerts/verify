@@ -13,7 +13,7 @@ const VerifyDocuments = () => {
     console.log('API URL:', apiUrl);
 
     
-
+// @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -49,6 +49,7 @@ const VerifyDocuments = () => {
     return (
         <div>
             <UploadCertificate
+            // @ts-ignore: Implicit any for children prop
                 handleFileChange={handleFileChange}
                 isLoading={isLoading}
                 apiUrl={apiUrl}

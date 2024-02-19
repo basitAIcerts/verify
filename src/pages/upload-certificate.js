@@ -28,7 +28,7 @@ const UploadCertificate = () => {
             setProgress(0);
         }
     }, [isLoading]);
-
+// @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
 
@@ -73,7 +73,7 @@ const UploadCertificate = () => {
       }, []);
 
       
-
+// @ts-ignore: Implicit any for children prop
       const handleVerifyCertificate = (qValue,ivValue) => {
         // Call the verify API with the encrypted link
         const data = {
@@ -85,6 +85,7 @@ const UploadCertificate = () => {
           
           if(response.status == "SUCCESS"){
             if (response.data.status === 'PASSED') {
+                // @ts-ignore: Implicit any for children prop
                 setApiData((prevData) => {
                     // Perform actions based on prevData and update state
                     return {
@@ -92,11 +93,13 @@ const UploadCertificate = () => {
                         Details: response.data.data
                     };
                 });
+                // @ts-ignore: Implicit any for children prop
                 setData(response.data.data)
                 
                 setIsLoading(false)
                 
             } else if (response.data.status === 'FAILED') {
+                // @ts-ignore: Implicit any for children prop
                 setApiData((prevData) => {
                     // Perform actions based on prevData and update state
                     return {
