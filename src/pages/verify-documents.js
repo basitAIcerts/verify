@@ -41,11 +41,6 @@ const VerifyDocuments = () => {
         }
     };
 
-
-  
-
-     
-
     return (
         <div>
             <UploadCertificate
