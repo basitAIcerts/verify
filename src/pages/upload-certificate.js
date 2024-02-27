@@ -15,20 +15,19 @@ const UploadCertificate = () => {
 
     useEffect(() => {
         if (isLoading) {
-            // Simulate progress with a timer
+            // Simulate progress with a timer only in the UI (not ideal)
             const interval = setInterval(() => {
-                // Update the progress (you can replace this with your API logic)
-                setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
+                setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 5 : 100));
             }, 500);
 
             // Clean up the interval when the component unmounts or loading is complete
             return () => clearInterval(interval);
         } else {
-            // Reset the progress when loading is complete
             setProgress(0);
         }
     }, [isLoading]);
-// @ts-ignore: Implicit any for children prop
+
+    // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
 
@@ -41,6 +40,11 @@ const UploadCertificate = () => {
                 const response = await fetch(`${apiUrl}/api/verify`, {
                     method: "POST",
                     body: formData,
+                    // @ts-ignore
+                    onUploadProgress: (progressEvent) => {
+                        const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setProgress(percentage); // Update based on actual upload progress
+                    },
                 });
 
                 const responseData = await response.json();
@@ -61,8 +65,7 @@ const UploadCertificate = () => {
         // Extract encrypted link from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const qValue = urlParams.get('q');
-        const ivValue = urlParams.get('iv');
-        
+        const ivValue = urlParams.get('iv');        
     
         if (qValue && ivValue) {
           handleVerifyCertificate(qValue,ivValue);
@@ -73,13 +76,14 @@ const UploadCertificate = () => {
       }, []);
 
       
-// @ts-ignore: Implicit any for children prop
-      const handleVerifyCertificate = (qValue,ivValue) => {
+    // @ts-ignore: Implicit any for children prop
+    const handleVerifyCertificate = (qValue, ivValue) => {
         // Call the verify API with the encrypted link
         const data = {
           qValue,ivValue
         }
         setIsLoading(true)
+
         certificate?.verifyCertificate(data, (response) => {
           // Handle the API response here (success or error)
           
@@ -183,7 +187,7 @@ const UploadCertificate = () => {
                                     alt='Loader'
                                 />
                             </div>
-                            <ProgressBar now={progress}  />
+                            <ProgressBar now={progress} label={`${progress}%`} />
                         </Modal.Body>
                     </Modal>
                 </div>
