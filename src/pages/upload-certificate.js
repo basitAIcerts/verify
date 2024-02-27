@@ -151,7 +151,7 @@ const UploadCertificate = () => {
                                 <Form >
                                     <div className='d-flex justify-content-center align-items-center'>
                                         <label htmlFor="fileInput" className="golden-upload">
-                                            Upload Certificate
+                                            Upload Certification
                                         </label>
 
                                         {/* File input with an event listener to update the label */}

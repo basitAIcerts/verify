@@ -22,7 +22,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL_VERIFY;
 const verifyCertificate = (data: any, callback: (response: Response) => void) => {
   API({
     method: "POST",
-    url: `${BASE_URL}/api/verify-encrypted`, // Append the endpoint to the base URL
+    url: `${BASE_URL}/api/verify-decrypt`, // Append the endpoint to the base URL
     data: {
       encryptedData: data.qValue,
       iv: data.ivValue,
