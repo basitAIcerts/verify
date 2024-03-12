@@ -8,7 +8,12 @@ const UploadCertificate = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
     const [progress, setProgress] = useState(0);
+    const [certificateNumber, setCertificateNumber] = useState(null);
     const [rendered, setRendered] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [loginError, setLoginError] = useState('');
+    const [loginSuccess, setLoginSuccess] = useState('');
+    const [show, setShow] = useState(false);
 
     const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -27,24 +32,21 @@ const UploadCertificate = () => {
         }
     }, [isLoading]);
 
-    // @ts-ignore: Implicit any for children prop
-    const handleFileChange = async (event) => {
-        const selectedFile = event.target.files[0];
+    const handleClose = () => {
+        setShow(false);
+    };
 
-        if (selectedFile) {
+    const handleVerify = async ()=>{
+        const data ={
+            id:certificateNumber
+        }
             try {
                 setIsLoading(true);
-                const formData = new FormData();
-                formData.append('pdfFile', selectedFile);
 
-                const response = await fetch(`${apiUrl}/api/verify`, {
+                const response = await fetch(`${apiUrl}/api/verify-certification-id`, {
                     method: "POST",
-                    body: formData,
-                    // @ts-ignore
-                    onUploadProgress: (progressEvent) => {
-                        const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        setProgress(percentage); // Update based on actual upload progress
-                    },
+                    // @ts-ignore: Implicit any for children prop
+                    body:data
                 });
 
                 const responseData = await response.json();
@@ -52,13 +54,109 @@ const UploadCertificate = () => {
                 setApiData(responseData);
 
             } catch (error) {
-                console.error('Error uploading file:', error);
+                console.error('Error Verifying Certificate:', error);
                 // Handle error
             } finally {
                 setIsLoading(false);
             }
+        
+    }
+// @ts-ignore: Implicit any for children prop
+    const handleFileChange = async (event) => {
+        setSelectedFile(event.target.files[0]);
+    }
+
+// @ts-ignore: Implicit any for children prop
+    // const handleSubmit = async (event) => {
+
+    //     if (selectedFile) {
+    //         try {
+    //             setIsLoading(true);
+    //             const formData = new FormData();
+    //             formData.append('pdfFile', selectedFile);
+
+    //             const response = await fetch(`${apiUrl}/api/verify`, {
+    //                 method: "POST",
+    //                 body: formData,
+    //             });
+
+    //             const responseData = await response.json();
+    //            // Assuming response is in JSON format
+    //             setApiData(responseData);
+
+    //         } catch (error) {
+    //             console.error('Error uploading file:', error);
+    //             // Handle error
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
+    // };
+
+    // @ts-ignore: Implicit any for children prop
+const handleSubmit = async (event) => {
+    try {
+        if (certificateNumber && selectedFile) {
+            setIsLoading(true);
+
+            // First API call with certificateNumber
+            const certificateResponse = await fetch(`${apiUrl}/api/verify-certification-id`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: certificateNumber,
+                }),
+            });
+
+            if (certificateResponse.ok) {
+                const certificateData = await certificateResponse.json();
+                // Assuming response is in JSON format
+                setApiData({
+                    // @ts-ignore: Implicit any for children prop
+                    Details:certificateData?.details,
+                    message:certificateData?.message
+                });
+            } else {
+                // If the first API call fails, try another API call with the file
+                const formData = new FormData();
+                formData.append('pdfFile', selectedFile);
+
+                const fileResponse = await fetch(`${apiUrl}/api/verify`, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (fileResponse.ok) {
+                    const fileData = await fileResponse.json();
+
+                    setApiData(fileData);
+                } else {
+                    // Both API calls failed, handle errors
+                    console.error('Error in both API calls');
+                    setLoginError("Error in Verifying certificate")
+                    setShow(true)
+                    // Handle error as needed
+                }
+            }
+        } else {
+            // Handle the case where either certificateNumber or selectedFile is missing
+            console.error('Both certificateNumber and selectedFile are required');
+            // Handle error as needed
+            setLoginError("Certification Number and PDF is required")
+            setShow(true)
         }
-    };
+    } catch (error) {
+        console.error('Error during API calls:', error);
+        setLoginError("Error in Verifying certificate")
+            setShow(true)
+        // Handle error as needed
+    } finally {
+        setIsLoading(false);
+    }
+};
+
 
     
     useEffect(() => {
@@ -97,6 +195,7 @@ const UploadCertificate = () => {
                         Details: response.data.data
                     };
                 });
+                
                 // @ts-ignore: Implicit any for children prop
                 setData(response.data.data)
                 
@@ -143,7 +242,23 @@ const UploadCertificate = () => {
                         <h1 className='title text-center'>Please upload your certification to validate.</h1>
                         <Col md={{ span: 10 }}>
                             <Card className='p-4'>
-
+                            <Row className='card-certificate '>
+                            <Form className='form-certificate-number card-certificate'>
+            <Form.Group controlId="certificate-number" className='mb-3 card-certificate'>
+                <Form.Label className='cert-label' >Enter Certification Number:</Form.Label>
+                <Form.Control
+                    type="text"
+                    className='certificate-input'
+                    // @ts-ignore: Implicit any for children prop
+                    value={certificateNumber}
+                    // @ts-ignore: Implicit any for children prop
+                    onChange={(e) => setCertificateNumber(e.target.value)}
+                />
+            </Form.Group>
+           
+        </Form>
+       
+        </Row>
                                 <div className='badge-banner'>
                                     <Image
                                         src="/backgrounds/verify-documents.svg"
@@ -153,24 +268,31 @@ const UploadCertificate = () => {
                                     />
                                 </div>
                                 <Form >
-                                    <div className='d-flex justify-content-center align-items-center'>
-                                        <label htmlFor="fileInput" className="golden-upload">
-                                            Upload Certification
-                                        </label>
+                                <div className='d-flex flex-column align-items-center'>
+            {selectedFile &&
+            // @ts-ignore: Implicit any for children prop
+                <p className="selected-file-name">{selectedFile.name}</p>
+            }
+            <label htmlFor="fileInput" className="golden-upload">
+                Upload Certification
+            </label>
 
-                                        {/* File input with an event listener to update the label */}
-                                        <input
-                                            type="file"
-                                            id="fileInput"
-                                            style={{ display: 'none' }}
-                                            // accept="application/pdf"
-                                            onChange={handleFileChange}
-                                        />
-
-                                    </div>
+            <input
+                type="file"
+                id="fileInput"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+            />
+        </div>
                                     <div className='information text-center'>
                                         Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                     </div>
+                                    <div className='d-flex justify-content-center align-items-center'>
+                                    <label onClick={handleSubmit} className="golden-upload-cert">
+                                            Verify
+                                        </label>
+                                    </div>
+                                  
                                 </Form >
                             </Card>
                         </Col>
@@ -190,6 +312,40 @@ const UploadCertificate = () => {
                             <ProgressBar now={progress} label={`${progress}%`} />
                         </Modal.Body>
                     </Modal>
+
+                    <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
+                    <Modal.Body className='p-5'>
+                        {loginError !== '' ? (
+                            <>
+                                <div className='error-icon'>
+                                    <Image
+                                        src="/icons/close.svg"
+                                        layout='fill'
+                                        objectFit='contain'
+                                        alt='Loader'
+                                    />
+                                </div>
+                                <h3 style={{ color: 'red' }}>{loginError}</h3>
+                                <button className='warning' onClick={handleClose}>Ok</button>
+                            </>
+                        ): (
+                            <>
+                                <div className='error-icon'>
+                                    <Image
+                                        src="/icons/check-mark.svg"
+                                        layout='fill'
+                                        objectFit='contain'
+                                        alt='Loader'
+                                    />
+                                </div>
+                                <h3 style={{ color: '#198754' }}>{loginSuccess}</h3>
+                                <button className='success' onClick={handleClose}>Ok</button>
+                            </>
+                        )}
+
+
+                    </Modal.Body>
+                </Modal>
                 </div>
             )}
 

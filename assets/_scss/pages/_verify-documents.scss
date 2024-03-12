@@ -65,6 +65,27 @@
         }
     }
 
+    .golden-upload-cert {
+        color: $white;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        padding: 12px 20px 12px 20px;
+        border-radius: 12px;
+        background: $golden;
+        position: relative;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+        cursor: pointer;
+        margin-top: 20px;
+        &:hover {
+            box-shadow: 0px 0px 7px 1px $golden-button-hover;
+        }
+    }
     .valid-cerficate-info {
         border-radius: 38px;
         background: #F3F4F6;
@@ -113,7 +134,7 @@
         }
 
         .dark-card {
-            border-radius: 26px;
+            border-radius: 26px;    
             background: #1C1F30;
             border: none;
             padding: 30px 40px;

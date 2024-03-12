@@ -33,7 +33,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     return (
         <div className='container-fluid'>
             <Row className="justify-content-center mt-4 verify-documents">
-                <h1 className='title text-center'>{message}</h1>
+                <h1 className='title text-center'>{message.replace('Certificate', 'Certification')}</h1>
                 <Col xs={{ span: 12 }} md={{ span: 10 }}>
                     <Card className='p-0 p-md-4'>
                         <Row className='justify-content-center'>
@@ -55,12 +55,12 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                         <Row className='position-relative'>
                                                             <Col className='border-right' xs={{ span: 12 }} md={{ span: 6 }}>
                                                                 <div className='hash-title'>Certification Number</div>
-                                                                <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number']}</div>
+                                                                <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number'] || Details['certificateNumber'] }</div>
                                                             </Col>
                                                             <Col xs={{ span: 12 }} md={{ span: 6 }}>
 
                                                                 <div className='hash-title'>Certification Name</div>
-                                                                <div className='hash-info'>{Details['Course Name'] ? Details['Course Name']: Details['Certification Name'] }</div>
+                                                                <div className='hash-info'>{Details['Course Name'] ? Details['Course Name']: Details['Certification Name'] || Details['course'] }</div>
                                                             </Col>
                                                             <hr />
                                                             <hr className='vertical-line' />
@@ -80,17 +80,17 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                             <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4  '>
                                                 <div className='details'>
                                                     <div className='heading'>Name</div>
-                                                    <div className='heading-info'>{Details['Name']}</div>
+                                                    <div className='heading-info'>{Details['Name'] || Details['name'] }</div>
                                                 </div>
                                                 <div className='details'>
                                                     <div className='heading'>Grant Date</div>
                                                     {/* <div className='heading-info'>{Details['Grant Date']}</div> */}
-                                                    <div className='heading-info'>{new Date(Details['Grant Date']).toLocaleDateString('en-GB')}</div>
+                                                    <div className='heading-info'>{new Date(Details['Grant Date'] || Details['grantDate'] ).toLocaleDateString('en-GB')}</div>
                                                 </div>
                                                 <div className='details'>
                                                     <div className='heading'>Expiration Date</div>
                                                     {/* <div className='heading-info'>{Details['Expiration Date']}</div> */}
-                                                    <div className='heading-info'>{new Date(Details['Expiration Date']).toLocaleDateString('en-GB')}</div>
+                                                    <div className='heading-info'>{new Date(Details['Expiration Date'] || Details['expirationDate']).toLocaleDateString('en-GB') || 'No Expiration Date available'}</div>
                                                 </div>
                                                 <div className='details varification-info'>
                                                     {/* <a href={Details['Polygon URL']} target="_blank" className='heading-info'>Verify on Blockchain</a> */}
@@ -123,6 +123,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                 ) : (
 
                                     <>
+                                    
                                         <div className='badge-banner'>
                                             <Image
                                                 src="/backgrounds/invalid-certificate.gif"
@@ -157,6 +158,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                     </Card>
                 </Col>
             </Row>
+
 
             {/* Loading Modal for API call */}
             <Modal className='loader-modal' show={isLoading} centered>
