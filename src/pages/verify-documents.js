@@ -10,7 +10,7 @@ const VerifyDocuments = () => {
     });
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    console.log('API URL:', apiUrl);
+
 
     
 // @ts-ignore: Implicit any for children prop

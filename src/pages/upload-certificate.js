@@ -130,8 +130,13 @@ const handleSubmit = async (event) => {
 
                 if (fileResponse.ok) {
                     const fileData = await fileResponse.json();
+                    if(fileData.Details["Certificate Number"] === certificateNumber){
 
-                    setApiData(fileData);
+                        setApiData(fileData);
+                    }else{
+                        setLoginError("Certificate Number and Certificate PDF doesnt match")
+                    setShow(true)
+                    }
                 } else {
                     // Both API calls failed, handle errors
                     console.error('Error in both API calls');

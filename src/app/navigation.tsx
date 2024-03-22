@@ -5,12 +5,16 @@ import React from 'react';
 
 
 const Navigation = () => {
+
+  const handleLogoClick = () => {
+    window.location.reload(); // Reload the page
+  };
  
   return (
     <>
       <nav className="global-header navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <div className='nav-logo'>
+          <div onClick={handleLogoClick} className='nav-logo'>
             <Link className="navbar-brand" href="/">
               <Image
                 src='https://images.netcomlearning.com/ai-certs/Certs365-logo.svg'

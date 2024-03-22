@@ -103,17 +103,21 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                         <Form className='p-4 p-md-0'>
                                             <div className='d-flex justify-content-center align-items-center'>
                                                 {/* Custom button */}
-                                                <label htmlFor="fileInput" className="golden-upload">
+                                                <a href="/" className="golden-upload">
+    Validate Another
+</a>
+
+                                                {/* <label htmlFor="fileInput" className="golden-upload">
                                                     Validate Another
-                                                </label>
+                                                </label> */}
 
                                                 {/* File input with an event listener to update the label */}
-                                                <input
+                                                {/* <input
                                                     type="file"
                                                     id="fileInput"
                                                     style={{ display: 'none' }}
                                                     onChange={handleFileChange}
-                                                />
+                                                /> */}
                                             </div>
                                             <div className='information text-center'>
                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
