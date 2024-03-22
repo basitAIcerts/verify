@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
+import Link from 'next/link';
 
 // @ts-ignore: Implicit any for children prop
 const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
@@ -21,6 +22,10 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
             setProgress(0);
         }
     }, [isLoading]);
+
+    const handleLogoClick = () => {
+        window.location.reload(); // Reload the page
+      };
 
     if (!apiData) {
         return (
@@ -103,17 +108,21 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                         <Form className='p-4 p-md-0'>
                                             <div className='d-flex justify-content-center align-items-center'>
                                                 {/* Custom button */}
-                                                <label htmlFor="fileInput" className="golden-upload">
+                                                <Link href="/" onClick={handleLogoClick} className="golden-upload">
+    Validate Another
+</Link>
+
+                                                {/* <label htmlFor="fileInput" className="golden-upload">
                                                     Validate Another
-                                                </label>
+                                                </label> */}
 
                                                 {/* File input with an event listener to update the label */}
-                                                <input
+                                                {/* <input
                                                     type="file"
                                                     id="fileInput"
                                                     style={{ display: 'none' }}
                                                     onChange={handleFileChange}
-                                                />
+                                                /> */}
                                             </div>
                                             <div className='information text-center'>
                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
