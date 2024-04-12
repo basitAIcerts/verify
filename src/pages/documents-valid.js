@@ -25,7 +25,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
 
     const handleLogoClick = () => {
         window.location.reload(); // Reload the page
-      };
+    };
 
     if (!apiData) {
         return (
@@ -69,14 +69,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                             </Col>
                                                             <hr />
                                                             <hr className='vertical-line' />
-                                                            {/* <Col className='border-right' xs={{ span: 12 }} md={{ span: 6 }}>
-                                                                <div className='hash-title'>Transaction Hash</div>
-                                                                <div className='hash-info'>{Details['Transaction Hash']}</div>
-                                                            </Col>
-                                                            <Col xs={{ span: 12 }} md={{ span: 6 }}>
-                                                                <div className='hash-title'>Certification Hash</div>
-                                                                <div className='hash-info'>{Details['Certificate Hash']}</div>
-                                                            </Col> */}
                                                         </Row>
                                                     </div>
                                                 </div>
@@ -89,16 +81,13 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                 </div>
                                                 <div className='details'>
                                                     <div className='heading'>Grant Date</div>
-                                                    {/* <div className='heading-info'>{Details['Grant Date']}</div> */}
                                                     <div className='heading-info'>{new Date(Details['Grant Date'] || Details['grantDate'] ).toLocaleDateString('en-GB')}</div>
                                                 </div>
                                                 <div className='details'>
                                                     <div className='heading'>Expiration Date</div>
-                                                    {/* <div className='heading-info'>{Details['Expiration Date']}</div> */}
                                                     <div className='heading-info'>{new Date(Details['Expiration Date'] || Details['expirationDate']).toLocaleDateString('en-GB') || 'No Expiration Date available'}</div>
                                                 </div>
                                                 <div className='details varification-info'>
-                                                    {/* <a href={Details['Polygon URL']} target="_blank" className='heading-info'>Verify on Blockchain</a> */}
                                                     <Button href={Details['Polygon URL']?Details['Polygon URL']:Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
                                                         Verify on Blockchain
                                                     </Button>
@@ -108,21 +97,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                         <Form className='p-4 p-md-0'>
                                             <div className='d-flex justify-content-center align-items-center'>
                                                 {/* Custom button */}
-                                                <Link href="/" onClick={handleLogoClick} className="golden-upload">
-    Validate Another
-</Link>
-
-                                                {/* <label htmlFor="fileInput" className="golden-upload">
-                                                    Validate Another
-                                                </label> */}
-
-                                                {/* File input with an event listener to update the label */}
-                                                {/* <input
-                                                    type="file"
-                                                    id="fileInput"
-                                                    style={{ display: 'none' }}
-                                                    onChange={handleFileChange}
-                                                /> */}
+                                                <Link href="/" onClick={handleLogoClick} className="golden-upload">Validate Another</Link>
                                             </div>
                                             <div className='information text-center'>
                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
