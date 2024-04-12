@@ -14,7 +14,9 @@ const UploadCertificate = () => {
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
     const [show, setShow] = useState(false);
+
     const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 
     useEffect(() => {
         if (isLoading) {
@@ -59,6 +61,7 @@ const UploadCertificate = () => {
         }
 
     }
+    
     // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         // setSelectedFile(event.target.files[0]);
@@ -159,7 +162,6 @@ const UploadCertificate = () => {
         }
     }, []);
 
-
     // @ts-ignore: Implicit any for children prop
     const handleVerifyCertificate = (qValue, ivValue) => {
         // Call the verify API with the encrypted link
@@ -238,12 +240,25 @@ const UploadCertificate = () => {
                                                 // @ts-ignore: Implicit any for children prop
                                                 value={certificateNumber}
                                                 // @ts-ignore: Implicit any for children prop
-                                                onChange={(e) => setCertificateNumber(e.target.value)}
+                                                // onChange={(e) => setCertificateNumber(e.target.value)}
+                                                
+                                                onChange={(e) => {
+                                                    // Get the input value
+                                                    let inputValue = e.target.value;
+                                    
+                                                    // Remove spaces from the input value
+                                                    inputValue = inputValue.replace(/\s/g, '');
+                                    
+                                                    // Validate alphanumeric and character limit
+                                                    if (/^[a-zA-Z0-9]*$/.test(inputValue) && inputValue.length <= 20) {
+                                                        // If input is valid, update state
+                                                        // @ts-ignore
+                                                        setCertificateNumber(inputValue);
+                                                    }
+                                                }}
                                             />
                                         </Form.Group>
-
                                     </Form>
-
                                 </Row>
                                 <div className='badge-banner'>
                                     <Image
@@ -268,13 +283,17 @@ const UploadCertificate = () => {
                                             id="fileInput"
                                             style={{ display: 'none' }}
                                             onChange={handleFileChange}
+                                            accept='.pdf'
                                         />
                                     </div>
                                     <div className='information text-center'>
                                         Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                     </div>
                                     <div className='d-flex justify-content-center align-items-center'>
-                                        <label onClick={handleSubmit} className="golden-upload-cert">
+                                        <label 
+                                            onClick={handleSubmit} 
+                                            className={`golden-upload-cert ${selectedFile ? 'has-file' : ''}`}
+                                        >
                                             Verify
                                         </label>
                                     </div>
@@ -328,6 +347,8 @@ const UploadCertificate = () => {
                                     <button className='success' onClick={handleClose}>Ok</button>
                                 </>
                             )}
+
+
                         </Modal.Body>
                     </Modal>
                 </div>

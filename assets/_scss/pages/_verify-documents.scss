@@ -74,7 +74,7 @@
         line-height: normal;
         padding: 12px 20px 12px 20px;
         border-radius: 12px;
-        background: $golden;
+        
         position: relative;
         transition: 0.5s;
         -webkit-transition: 0.5s;
@@ -83,10 +83,19 @@
         -o-transition: 0.5s;
         cursor: pointer;
         margin-top: 20px;
+        background: #c1c1c1;
+        pointer-events: none;
+
         &:hover {
             box-shadow: 0px 0px 7px 1px $golden-button-hover;
         }
+
+        &.has-file {
+           pointer-events: visible;
+           background: $golden;
+        }
     }
+
     .valid-cerficate-info {
         border-radius: 38px;
         background: #F3F4F6;
