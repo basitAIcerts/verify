@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import UploadCertificate from './upload-certificate';
-import DocumentsValid from './documents-valid';
 
 const VerifyDocuments = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -10,10 +9,8 @@ const VerifyDocuments = () => {
     });
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-
     
-// @ts-ignore: Implicit any for children prop
+    // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -51,10 +48,6 @@ const VerifyDocuments = () => {
                 setApiData={setApiData}
                 apiDataVerify={apiData}
             />
-          {/* <DocumentsValid 
-          apiData={apiData}
-          
-           /> */}
         </div>
     );
 }
