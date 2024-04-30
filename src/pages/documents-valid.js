@@ -27,6 +27,8 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
         window.location.reload(); // Reload the page
     };
 
+    
+
     if (!apiData) {
         return (
             <></>
@@ -34,6 +36,26 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     }
 
     const { message, Details } = apiData;
+
+    /**
+ * Formats a date string in 'mm/dd/yyyy' format.
+ * @param {string | undefined} dateString The date string to format.
+ * @returns {string} The formatted date string.
+ */
+const formatDate = (dateString) => {
+    if (!dateString) return ''; // Handle empty or undefined date string
+    
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Invalid Date'; // Handle invalid date strings
+    
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because getMonth() returns zero-based month index
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    
+    return `${month}/${day}/${year}`;
+};
+
+    
 
     return (
         <div className='container-fluid'>
@@ -80,13 +102,14 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                     <div className='heading-info'>{Details['Name'] || Details['name'] }</div>
                                                 </div>
                                                 <div className='details'>
-                                                    <div className='heading'>Grant Date</div>
-                                                    <div className='heading-info'>{new Date(Details['Grant Date'] || Details['grantDate'] ).toLocaleDateString('en-GB')}</div>
-                                                </div>
-                                                <div className='details'>
-                                                    <div className='heading'>Expiration Date</div>
-                                                    <div className='heading-info'>{new Date(Details['Expiration Date'] || Details['expirationDate']).toLocaleDateString('en-GB') || 'No Expiration Date available'}</div>
-                                                </div>
+    <div className='heading'>Grant Date</div>
+    <div className='heading-info'>{formatDate(Details['Grant Date'] || Details['grantDate'])}</div>
+</div>
+<div className='details'>
+    <div className='heading'>Expiration Date</div>
+    <div className='heading-info'>{formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'}</div>
+</div>
+
                                                 <div className='details varification-info'>
                                                     <Button href={Details['Polygon URL']?Details['Polygon URL']:Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
                                                         Verify on Blockchain
