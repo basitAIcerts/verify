@@ -76,3 +76,46 @@ a {
     line-height: normal;
     margin-top: 84px;
 }
+
+.page-bg {
+    background-image: url(https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: -10em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+}
+
+.page-footer-bg {
+    background-image: url(https://images.netcomlearning.com/ai-certs/cer365AllPageFooterBg.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 354px;
+    height: 254px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+
+    &.verify-cert {
+        transform: translateY(-70%);
+        -webkit-transform: translateY(-70%);
+        -moz-transform: translateY(-70%);
+        -ms-transform: translateY(-70%);
+        -o-transform: translateY(-70%);
+}
+}

@@ -225,133 +225,142 @@ const UploadCertificate = () => {
                     <DocumentsValid handleFileChange={handleFileChange} apiData={apiData} isLoading={isLoading} />
                 </>
             ) : (
-                <div className='container-fluid'>
-                    <Row className="justify-content-center mt-4 verify-documents">
-                        <h1 className='title text-center'>Please upload your certification to validate.</h1>
-                        <Col md={{ span: 10 }}>
-                            <Card className='p-4'>
-                                <Row className='card-certificate '>
-                                    <Form className='form-certificate-number card-certificate'>
-                                        <Form.Group controlId="certificate-number" className='mb-3 card-certificate'>
-                                            <Form.Label className='cert-label' >Enter Certification Number:</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                className='certificate-input'
-                                                // @ts-ignore: Implicit any for children prop
-                                                value={certificateNumber}
-                                                // @ts-ignore: Implicit any for children prop
-                                                // onChange={(e) => setCertificateNumber(e.target.value)}
-                                                
-                                                onChange={(e) => {
-                                                    // Get the input value
-                                                    let inputValue = e.target.value;
-                                    
-                                                    // Remove spaces from the input value
-                                                    inputValue = inputValue.replace(/\s/g, '');
-                                    
-                                                    // Validate alphanumeric and character limit
-                                                    if (/^[a-zA-Z0-9]*$/.test(inputValue) && inputValue.length <= 20) {
-                                                        // If input is valid, update state
-                                                        // @ts-ignore
-                                                        setCertificateNumber(inputValue);
-                                                    }
-                                                }}
-                                            />
-                                        </Form.Group>
-                                    </Form>
-                                </Row>
-                                <div className='badge-banner'>
-                                    <Image
-                                        src="/backgrounds/verify-documents.svg"
-                                        layout='fill'
-                                        objectFit='contain'
-                                        alt='Badge banner'
-                                    />
+                <>
+                    <div className='page-bg'>
+                        <div className='position-relative h-100'>
+                            <div className='vertical-center verify-cert'>
+                                <div className='container-fluid'>
+                                    <Row className="justify-content-center mt-4 verify-documents">
+                                        <h1 className='title text-center'>Please upload your certification to validate.</h1>
+                                        <Col md={{ span: 10 }}>
+                                            <Card className='p-4'>
+                                                <Row className='card-certificate '>
+                                                    <Form className='form-certificate-number card-certificate'>
+                                                        <Form.Group controlId="certificate-number" className='mb-3 card-certificate'>
+                                                            <Form.Label className='cert-label' >Enter Certification Number:</Form.Label>
+                                                            <Form.Control
+                                                                type="text"
+                                                                className='certificate-input'
+                                                                // @ts-ignore: Implicit any for children prop
+                                                                value={certificateNumber}
+                                                                // @ts-ignore: Implicit any for children prop
+                                                                // onChange={(e) => setCertificateNumber(e.target.value)}
+                                                                
+                                                                onChange={(e) => {
+                                                                    // Get the input value
+                                                                    let inputValue = e.target.value;
+                                                    
+                                                                    // Remove spaces from the input value
+                                                                    inputValue = inputValue.replace(/\s/g, '');
+                                                    
+                                                                    // Validate alphanumeric and character limit
+                                                                    if (/^[a-zA-Z0-9]*$/.test(inputValue) && inputValue.length <= 20) {
+                                                                        // If input is valid, update state
+                                                                        // @ts-ignore
+                                                                        setCertificateNumber(inputValue);
+                                                                    }
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </Form>
+                                                </Row>
+                                                <div className='badge-banner'>
+                                                    <Image
+                                                        src="/backgrounds/verify-documents.svg"
+                                                        layout='fill'
+                                                        objectFit='contain'
+                                                        alt='Badge banner'
+                                                    />
+                                                </div>
+                                                <Form >
+                                                    <div className='d-flex flex-column align-items-center'>
+                                                        {selectedFile &&
+                                                            // @ts-ignore: Implicit any for children prop
+                                                            <p className="selected-file-name">{selectedFile.name}</p>
+                                                        }
+                                                        <label htmlFor="fileInput" className="golden-upload">
+                                                            Upload Certification
+                                                        </label>
+
+                                                        <input
+                                                            type="file"
+                                                            id="fileInput"
+                                                            style={{ display: 'none' }}
+                                                            onChange={handleFileChange}
+                                                            accept='.pdf'
+                                                        />
+                                                    </div>
+                                                    <div className='information text-center'>
+                                                        Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
+                                                    </div>
+                                                    <div className='d-flex justify-content-center align-items-center'>
+                                                        <label 
+                                                            onClick={handleSubmit} 
+                                                            className={`golden-upload-cert ${selectedFile ? 'has-file' : ''}`}
+                                                        >
+                                                            Verify
+                                                        </label>
+                                                    </div>
+
+                                                </Form >
+                                            </Card>
+                                        </Col>
+                                    </Row>
+
+                                    {/* Modal for loading */}
+                                    <Modal className='loader-modal' show={isLoading} centered>
+                                        <Modal.Body>
+                                            <div className='certificate-loader'>
+                                                <Image
+                                                    src="/backgrounds/certification-loader.gif"
+                                                    layout='fill'
+                                                    objectFit='contain'
+                                                    alt='Loader'
+                                                />
+                                            </div>
+                                            <ProgressBar now={progress} label={`${progress}%`} />
+                                        </Modal.Body>
+                                    </Modal>
+
+                                    <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
+                                        <Modal.Body className='p-5'>
+                                            {loginError !== '' ? (
+                                                <>
+                                                    <div className='error-icon'>
+                                                        <Image
+                                                            src="/icons/close.svg"
+                                                            layout='fill'
+                                                            objectFit='contain'
+                                                            alt='Loader'
+                                                        />
+                                                    </div>
+                                                    <h3 style={{ color: 'red' }}>{loginError}</h3>
+                                                    <button className='warning' onClick={handleClose}>Ok</button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className='error-icon'>
+                                                        <Image
+                                                            src="/icons/check-mark.svg"
+                                                            layout='fill'
+                                                            objectFit='contain'
+                                                            alt='Loader'
+                                                        />
+                                                    </div>
+                                                    <h3 style={{ color: '#198754' }}>{loginSuccess}</h3>
+                                                    <button className='success' onClick={handleClose}>Ok</button>
+                                                </>
+                                            )}
+
+
+                                        </Modal.Body>
+                                    </Modal>
                                 </div>
-                                <Form >
-                                    <div className='d-flex flex-column align-items-center'>
-                                        {selectedFile &&
-                                            // @ts-ignore: Implicit any for children prop
-                                            <p className="selected-file-name">{selectedFile.name}</p>
-                                        }
-                                        <label htmlFor="fileInput" className="golden-upload">
-                                            Upload Certification
-                                        </label>
-
-                                        <input
-                                            type="file"
-                                            id="fileInput"
-                                            style={{ display: 'none' }}
-                                            onChange={handleFileChange}
-                                            accept='.pdf'
-                                        />
-                                    </div>
-                                    <div className='information text-center'>
-                                        Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
-                                    </div>
-                                    <div className='d-flex justify-content-center align-items-center'>
-                                        <label 
-                                            onClick={handleSubmit} 
-                                            className={`golden-upload-cert ${selectedFile ? 'has-file' : ''}`}
-                                        >
-                                            Verify
-                                        </label>
-                                    </div>
-
-                                </Form >
-                            </Card>
-                        </Col>
-                    </Row>
-
-                    {/* Modal for loading */}
-                    <Modal className='loader-modal' show={isLoading} centered>
-                        <Modal.Body>
-                            <div className='certificate-loader'>
-                                <Image
-                                    src="/backgrounds/certification-loader.gif"
-                                    layout='fill'
-                                    objectFit='contain'
-                                    alt='Loader'
-                                />
                             </div>
-                            <ProgressBar now={progress} label={`${progress}%`} />
-                        </Modal.Body>
-                    </Modal>
-
-                    <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
-                        <Modal.Body className='p-5'>
-                            {loginError !== '' ? (
-                                <>
-                                    <div className='error-icon'>
-                                        <Image
-                                            src="/icons/close.svg"
-                                            layout='fill'
-                                            objectFit='contain'
-                                            alt='Loader'
-                                        />
-                                    </div>
-                                    <h3 style={{ color: 'red' }}>{loginError}</h3>
-                                    <button className='warning' onClick={handleClose}>Ok</button>
-                                </>
-                            ) : (
-                                <>
-                                    <div className='error-icon'>
-                                        <Image
-                                            src="/icons/check-mark.svg"
-                                            layout='fill'
-                                            objectFit='contain'
-                                            alt='Loader'
-                                        />
-                                    </div>
-                                    <h3 style={{ color: '#198754' }}>{loginSuccess}</h3>
-                                    <button className='success' onClick={handleClose}>Ok</button>
-                                </>
-                            )}
-
-
-                        </Modal.Body>
-                    </Modal>
-                </div>
+                        </div>
+                    </div>
+                    <div className='page-footer-bg'></div>
+                </>
             )}
 
         </>

@@ -10,11 +10,11 @@
 
     .card {
         border: 2px dashed #E5E7E8;
-        border-radius: 40px;
-        -webkit-border-radius: 40px;
-        -moz-border-radius: 40px;
-        -ms-border-radius: 40px;
-        -o-border-radius: 40px;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
 
         .badge-banner {
             position: relative;
@@ -30,7 +30,11 @@
             font-weight: 600;
             line-height: normal;
             padding: 12px 20px 12px 56px;
-            border-radius: 12px;
+            border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
             background: $golden;
             position: relative;
             transition: 0.5s;
@@ -41,8 +45,8 @@
             cursor: pointer;
             margin-top: 20px;
             text-decoration: none;
-
-            &::before {
+            
+            &:before {
                 content: '';
                 position: absolute;
                 left: 20px;
@@ -72,9 +76,7 @@
         font-style: normal;
         font-weight: 600;
         line-height: normal;
-        padding: 12px 20px 12px 20px;
-        border-radius: 12px;
-        
+        padding: 12px 20px 12px 20px;        
         position: relative;
         transition: 0.5s;
         -webkit-transition: 0.5s;
@@ -97,7 +99,6 @@
     }
 
     .valid-cerficate-info {
-        border-radius: 38px;
         background: #F3F4F6;
         padding: 40px;
         border: none;
@@ -125,17 +126,16 @@
                 &.varification-info {
                     .heading-info {
                         color: $golden;
-
                         font-size: 20px;
                         font-style: normal;
                         font-weight: 600;
                         line-height: normal;
                         background: #F5EED7;
-                        border-radius: 8px;
-                        -webkit-border-radius: 8px;
-                        -moz-border-radius: 8px;
-                        -ms-border-radius: 8px;
-                        -o-border-radius: 8px;
+                        border-radius: 0;
+                        -webkit-border-radius: 0;
+                        -moz-border-radius: 0;
+                        -ms-border-radius: 0;
+                        -o-border-radius: 0;
                         border: none;
                         padding: 14px 40px;
                     }
@@ -143,8 +143,7 @@
             }
         }
 
-        .dark-card {
-            border-radius: 26px;    
+        .dark-card {  
             background: #1C1F30;
             border: none;
             padding: 30px 40px;
@@ -221,6 +220,133 @@
                     }
                 }
             }
+        }
+    }
+
+    // 1600
+    @media (min-width: $large-min) and (max-width: $large-max) {
+        .card {
+            .badge-banner {
+                height: 250px;
+            }
+        }
+    }
+
+    // 1440
+    @media (min-width: $medium-min) and (max-width: $medium-max) {
+        .title {
+            font-size: 32px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            .badge-banner {
+                height: 250px;
+            }
+
+            .golden-upload {
+                margin-top: 0;
+
+                &.valid-again {
+                    margin-top: 14px;
+                }
+            }
+
+            .information {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    // 1366
+    @media (min-width: $small-min) and (max-width: $small-max) {
+        .title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            .badge-banner {
+                height: 210px;
+            }
+
+            .golden-upload {
+                margin-top: 0;
+
+                &.valid-again {
+                    margin-top: 14px;
+                }
+            }
+
+            .information {
+                margin-top: 10px;
+            }
+        }
+
+        .valid-cerficate-info {
+            padding: 20px;
+
+            .cerficate-external-info {
+                .details {
+                    margin: 0;
+                }
+            }
+
+            .dark-card {
+                padding: 16px 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .golden-upload-cert.has-file {
+            font-size: 16px;
+        }
+    }
+
+    // 1280
+    @media (min-width: $laptop-min) and (max-width: $laptop-max) {
+        .title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            .badge-banner {
+                height: 170px;
+            }
+
+            .golden-upload {
+                margin-top: 0;
+                font-size: 16px;
+                padding: 15px 20px 15px 56px;
+
+                &.valid-again {
+                    margin-top: 14px;
+                }
+            }
+
+            .information {
+                margin-top: 10px;
+            }
+        }
+
+        .valid-cerficate-info {
+            padding: 20px;
+
+            .cerficate-external-info {
+                .details {
+                    margin: 0;
+                }
+            }
+
+            .dark-card {
+                padding: 16px 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .golden-upload-cert.has-file {
+            font-size: 16px;
         }
     }
 
