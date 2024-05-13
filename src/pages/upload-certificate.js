@@ -264,6 +264,7 @@ const UploadCertificate = () => {
                                                         </Form.Group>
                                                     </Form>
                                                 </Row>
+                                                <div className='divider position-relative text-center'>and</div>
                                                 <div className='badge-banner'>
                                                     <Image
                                                         src="/backgrounds/verify-documents.svg"
