@@ -25,11 +25,11 @@
 
         .golden-upload {
             color: $white;
-            font-size: 22px;
+            font-size: 18px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
-            padding: 12px 20px 12px 56px;
+            padding: 14px 20px 14px 46px;
             border-radius: 0;
             -webkit-border-radius: 0;
             -moz-border-radius: 0;
@@ -50,22 +50,24 @@
                 content: '';
                 position: absolute;
                 left: 20px;
-                width: 26px;
-                height: 26px;
+                width: 18px;
+                height: 18px;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26' fill='none'%3E%3Cpath d='M23.833 14.0833C23.5457 14.0833 23.2701 14.1974 23.067 14.4006C22.8638 14.6038 22.7497 14.8793 22.7497 15.1666V19.7307C22.7488 20.5312 22.4304 21.2987 21.8644 21.8647C21.2984 22.4307 20.5309 22.7491 19.7304 22.75H6.26892C5.46843 22.7491 4.70098 22.4307 4.13494 21.8647C3.56891 21.2987 3.25053 20.5312 3.24967 19.7307V15.1666C3.24967 14.8793 3.13554 14.6038 2.93237 14.4006C2.72921 14.1974 2.45366 14.0833 2.16634 14.0833C1.87902 14.0833 1.60347 14.1974 1.40031 14.4006C1.19714 14.6038 1.08301 14.8793 1.08301 15.1666V19.7307C1.08444 21.1057 1.63127 22.4239 2.60351 23.3961C3.57575 24.3684 4.89397 24.9152 6.26892 24.9166H19.7304C21.1054 24.9152 22.4236 24.3684 23.3958 23.3961C24.3681 22.4239 24.9149 21.1057 24.9163 19.7307V15.1666C24.9163 14.8793 24.8022 14.6038 24.599 14.4006C24.3959 14.1974 24.1203 14.0833 23.833 14.0833Z' fill='white'/%3E%3Cpath d='M7.26563 9.43258L11.9164 4.78183V18.4167C11.9164 18.704 12.0305 18.9795 12.2337 19.1827C12.4368 19.3859 12.7124 19.5 12.9997 19.5C13.287 19.5 13.5626 19.3859 13.7657 19.1827C13.9689 18.9795 14.083 18.704 14.083 18.4167V4.78183L18.7338 9.43258C18.9381 9.62991 19.2118 9.73911 19.4958 9.73664C19.7799 9.73417 20.0516 9.62024 20.2524 9.41938C20.4533 9.21852 20.5672 8.94681 20.5697 8.66276C20.5722 8.37871 20.463 8.10506 20.2656 7.90074L13.7656 1.40074C13.5625 1.19765 13.287 1.08356 12.9997 1.08356C12.7124 1.08356 12.4369 1.19765 12.2338 1.40074L5.73379 7.90074C5.53645 8.10506 5.42726 8.37871 5.42973 8.66276C5.4322 8.94681 5.54613 9.21852 5.74699 9.41938C5.94785 9.62024 6.21956 9.73417 6.50361 9.73664C6.78765 9.73911 7.06131 9.62991 7.26563 9.43258Z' fill='white'/%3E%3C/svg%3E");
+                background-size: contain;
+                background-repeat: no-repeat;
             }
 
             &:hover {
-                box-shadow: 0px 0px 7px 1px $golden-button-hover;
+                background: rgba(186, 152, 47, 1);
             }
         }
 
         .information {
             color: #5A677E;
-            font-size: 18px;
+            font-size: 16px;
             font-style: normal;
             font-weight: 500;
-            line-height: 28px;
+            line-height: 22px;
             margin-top: 20px;
         }
 
@@ -80,7 +82,7 @@
             &::before {
                 content: '';
                 position: absolute;
-                left: 13.6em;
+                left: 16.6em;
                 top: 8px;
                 height: 6px;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='411' height='7' viewBox='0 0 411 7' fill='none'%3E%3Cpath d='M0.333333 3.5C0.333333 4.97276 1.52724 6.16667 3 6.16667C4.47276 6.16667 5.66667 4.97276 5.66667 3.5C5.66667 2.02724 4.47276 0.833333 3 0.833333C1.52724 0.833333 0.333333 2.02724 0.333333 3.5ZM410 4C410.276 4 410.5 3.77614 410.5 3.5C410.5 3.22386 410.276 3 410 3V4ZM3 4L410 4V3L3 3V4Z' fill='%23EAEEF5'/%3E%3C/svg%3E");
@@ -115,7 +117,7 @@
             // 1440
             @media (min-width: $medium-min) and (max-width: $medium-max) {
                 &::before {
-                    left: 9em;
+                    left: 9.5em;
                 }
 
                 &::after {
@@ -149,11 +151,11 @@
 
     .golden-upload-cert {
         color: $white;
-        font-size: 22px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
-        padding: 12px 20px 12px 20px;        
+        padding: 14px 30px;        
         position: relative;
         transition: 0.5s;
         -webkit-transition: 0.5s;
@@ -318,7 +320,7 @@
 
         .card {
             .badge-banner {
-                height: 250px;
+                height: 300px;
             }
 
             .golden-upload {
