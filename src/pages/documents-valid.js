@@ -27,8 +27,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
         window.location.reload(); // Reload the page
     };
 
-
-
     if (!apiData) {
         return (
             <></>
@@ -55,140 +53,141 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
         return `${month}/${day}/${year}`;
     };
 
-
-
     return (
         <>
-        <div className='page-bg'>
-            <div className='position-relative h-100'>
-                <div className='vertical-center verify-cert'>
-                    <div className='container-fluid'>
-                        <Row className="justify-content-center mt-4 verify-documents">
-                            <h1 className='title text-center'>{message.replace('Certificate', 'Certification')}</h1>
-                            <Col xs={{ span: 12 }} md={{ span: 10 }}>
-                                <Card className='p-0 p-md-4'>
-                                    <Row className='justify-content-center'>
-                                        <Col xs={{ span: 12 }} md={{ span: 12 }}>
-                                            {Details ? (
-                                                <>
-                                                    <Card className='valid-cerficate-info'>
-                                                        <Card className='dark-card position-relative'>
-                                                            <div className='d-block d-lg-flex justify-content-between align-items-center certificate-internal-info'>
-                                                                <div className='badge-banner'>
-                                                                    <Image
-                                                                        src="/backgrounds/varified-certificate-badge.gif"
-                                                                        layout='fill'
-                                                                        objectFit='contain'
-                                                                        alt='Badge Banner'
-                                                                    />
-                                                                </div>
-                                                                <div className='hash-info'>
-                                                                    <Row className='position-relative'>
-                                                                        <Col className='border-right' xs={{ span: 12 }} md={{ span: 6 }}>
-                                                                            <div className='hash-title'>Certification Number</div>
-                                                                            <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number'] || Details['certificateNumber']}</div>
-                                                                        </Col>
-                                                                        <Col xs={{ span: 12 }} md={{ span: 6 }}>
+            <div className='page-bg'>
+                <div className='position-relative h-100'>
+                    <div className='vertical-center verify-cert'>
+                        <div className='container-fluid'>
+                            <Row className="justify-content-center mt-4 verify-documents">
+                                <h1 className='title text-center'>{message.replace('Certificate', 'Certification')}</h1>
+                                <Col xs={{ span: 12 }} md={{ span: 10 }}>
+                                    <Card className='p-0 p-md-4'>
+                                        <Row className='justify-content-center'>
+                                            <Col xs={{ span: 12 }} md={{ span: 12 }}>
+                                                {Details ? (
+                                                    <>
+                                                        <Card className='valid-cerficate-info'>
+                                                            <Card className='dark-card position-relative'>
+                                                                <div className='d-block d-lg-flex justify-content-between align-items-center certificate-internal-info'>
+                                                                    <div className='badge-banner'>
+                                                                        <Image
+                                                                            src="/backgrounds/varified-certificate-badge.gif"
+                                                                            layout='fill'
+                                                                            objectFit='contain'
+                                                                            alt='Badge Banner'
+                                                                        />
+                                                                    </div>
+                                                                    <div className='hash-info'>
+                                                                        <Row className='position-relative'>
+                                                                            <Col className='border-right' xs={{ span: 12 }} md={{ span: 6 }}>
+                                                                                <div className='hash-title'>Certification Number</div>
+                                                                                <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number'] || Details['certificateNumber']}</div>
+                                                                            </Col>
+                                                                            <Col xs={{ span: 12 }} md={{ span: 6 }}>
 
-                                                                            <div className='hash-title'>Certification Name</div>
-                                                                            <div className='hash-info'>{Details['Course Name'] ? Details['Course Name'] : Details['Certification Name'] || Details['course']}</div>
-                                                                        </Col>
-                                                                        <hr />
-                                                                        <hr className='vertical-line' />
-                                                                    </Row>
+                                                                                <div className='hash-title'>Certification Name</div>
+                                                                                <div className='hash-info'>{Details['Course Name'] ? Details['Course Name'] : Details['Certification Name'] || Details['course']}</div>
+                                                                            </Col>
+                                                                            <hr />
+                                                                            <hr className='vertical-line' />
+                                                                        </Row>
+                                                                    </div>
+                                                                </div>
+                                                            </Card>
+
+                                                            <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4  '>
+                                                                <div className='details'>
+                                                                    <div className='heading'>Name</div>
+                                                                    <div className='heading-info'>{Details['Name'] || Details['name']}</div>
+                                                                </div>
+                                                                <div className='details'>
+                                                                    <div className='heading'>Grant Date</div>
+                                                                    <div className='heading-info'>{formatDate(Details['Grant Date'] || Details['grantDate'])}</div>
+                                                                </div>
+                                                                <div className='details'>
+                                                                    <div className='heading'>Expiration Date</div>
+                                                                    <div className='heading-info'>
+                                                                        {/* {formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'} */}
+                                                                        {Details['Expiration Date'] === "1" || Details['expirationDate'] === "1" ? "-" : formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className='details varification-info'>
+                                                                    <Button href={Details['Polygon URL'] ? Details['Polygon URL'] : Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
+                                                                        Verify on Blockchain
+                                                                    </Button>
                                                                 </div>
                                                             </div>
                                                         </Card>
-
-                                                        <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4  '>
-                                                            <div className='details'>
-                                                                <div className='heading'>Name</div>
-                                                                <div className='heading-info'>{Details['Name'] || Details['name']}</div>
+                                                        <Form className='p-4 p-md-0'>
+                                                            <div className='d-flex justify-content-center align-items-center'>
+                                                                {/* Custom button */}
+                                                                <Link href="/" onClick={handleLogoClick} className="golden-upload valid-again">Validate Another</Link>
                                                             </div>
-                                                            <div className='details'>
-                                                                <div className='heading'>Grant Date</div>
-                                                                <div className='heading-info'>{formatDate(Details['Grant Date'] || Details['grantDate'])}</div>
+                                                            <div className='information text-center'>
+                                                                Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                             </div>
-                                                            <div className='details'>
-                                                                <div className='heading'>Expiration Date</div>
-                                                                <div className='heading-info'>{formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'}</div>
-                                                            </div>
+                                                        </Form >
+                                                    </>
+                                                ) : (
 
-                                                            <div className='details varification-info'>
-                                                                <Button href={Details['Polygon URL'] ? Details['Polygon URL'] : Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
-                                                                    Verify on Blockchain
-                                                                </Button>
-                                                            </div>
-                                                        </div>
-                                                    </Card>
-                                                    <Form className='p-4 p-md-0'>
-                                                        <div className='d-flex justify-content-center align-items-center'>
-                                                            {/* Custom button */}
-                                                            <Link href="/" onClick={handleLogoClick} className="golden-upload valid-again">Validate Another</Link>
-                                                        </div>
-                                                        <div className='information text-center'>
-                                                            Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
-                                                        </div>
-                                                    </Form >
-                                                </>
-                                            ) : (
+                                                    <>
 
-                                                <>
-
-                                                    <div className='badge-banner'>
-                                                        <Image
-                                                            src="/backgrounds/invalid-certificate.gif"
-                                                            layout='fill'
-                                                            objectFit='contain'
-                                                            alt='Badge Banner'
-                                                        />
-                                                    </div>
-                                                    <Form >
-                                                        <div className='d-flex justify-content-center align-items-center'>
-                                                            {/* Custom button */}
-                                                            <label htmlFor="fileInput" className="golden-upload">
-                                                                Validate again
-                                                            </label>
-
-                                                            {/* File input with an event listener to update the label */}
-                                                            <input
-                                                                type="file"
-                                                                id="fileInput"
-                                                                style={{ display: 'none' }}
-                                                                onChange={handleFileChange}
+                                                        <div className='badge-banner'>
+                                                            <Image
+                                                                src="/backgrounds/invalid-certificate.gif"
+                                                                layout='fill'
+                                                                objectFit='contain'
+                                                                alt='Badge Banner'
                                                             />
                                                         </div>
-                                                        <div className='information text-center pb-md-0 pb-4'>
-                                                            Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
-                                                        </div>
-                                                    </Form >
-                                                </>
-                                            )}
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Col>
-                        </Row>
+                                                        <Form >
+                                                            <div className='d-flex justify-content-center align-items-center'>
+                                                                {/* Custom button */}
+                                                                <label htmlFor="fileInput" className="golden-upload">
+                                                                    Validate again
+                                                                </label>
+
+                                                                {/* File input with an event listener to update the label */}
+                                                                <input
+                                                                    type="file"
+                                                                    id="fileInput"
+                                                                    style={{ display: 'none' }}
+                                                                    onChange={handleFileChange}
+                                                                />
+                                                            </div>
+                                                            <div className='information text-center pb-md-0 pb-4'>
+                                                                Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
+                                                            </div>
+                                                        </Form >
+                                                    </>
+                                                )}
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className='page-footer-bg'></div>
+            <div className='page-footer-bg'></div>
 
-        {/* Loading Modal for API call */}
-        <Modal className='loader-modal' show={isLoading} centered>
-            <Modal.Body>
-                <div className='certificate-loader'>
-                    <Image
-                        src="/backgrounds/certification-loader.gif"
-                        layout='fill'
-                        objectFit='contain'
-                        alt='Loader'
-                    />
-                </div>
-                <ProgressBar now={progress} />
-            </Modal.Body>
-        </Modal>
+            {/* Loading Modal for API call */}
+            <Modal className='loader-modal' show={isLoading} centered>
+                <Modal.Body>
+                    <div className='certificate-loader'>
+                        <Image
+                            src="/backgrounds/certification-loader.gif"
+                            layout='fill'
+                            objectFit='contain'
+                            alt='Loader'
+                        />
+                    </div>
+                    <ProgressBar now={progress} />
+                </Modal.Body>
+            </Modal>
         </>
     );
 }
