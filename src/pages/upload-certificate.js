@@ -61,6 +61,8 @@ const UploadCertificate = () => {
         }
 
     }
+
+    console.log(apiData)
     
     // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
@@ -125,15 +127,13 @@ const UploadCertificate = () => {
                         }
                     } else {
                         // Both API calls failed, handle errors
-                        console.error('Error in both API calls');
-                        setLoginError("Error in Verifying certificate")
+                        const errorData = await fileResponse.json();
+                        setLoginError(errorData.message || "Error in Verifying certificate");
                         setShow(true)
                         // Handle error as needed
                     }
                 }
             } else {
-                // Handle the case where either certificateNumber or selectedFile is missing
-                console.error('Both certificateNumber and selectedFile are required');
                 // Handle error as needed
                 setLoginError("Certification Number and PDF is required")
                 setShow(true)
@@ -264,6 +264,7 @@ const UploadCertificate = () => {
                                                         </Form.Group>
                                                     </Form>
                                                 </Row>
+                                                <div className='divider position-relative text-center'>and</div>
                                                 <div className='badge-banner'>
                                                     <Image
                                                         src="/backgrounds/verify-documents.svg"
@@ -274,10 +275,12 @@ const UploadCertificate = () => {
                                                 </div>
                                                 <Form >
                                                     <div className='d-flex flex-column align-items-center'>
-                                                        {selectedFile &&
+                                                        {selectedFile ? (
                                                             // @ts-ignore: Implicit any for children prop
                                                             <p className="selected-file-name">{selectedFile.name}</p>
-                                                        }
+                                                        ) : (
+                                                            <p className="selected-file-name">&nbsp;</p>
+                                                        )}
                                                         <label htmlFor="fileInput" className="golden-upload">
                                                             Upload Certification
                                                         </label>

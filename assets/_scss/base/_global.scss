@@ -88,6 +88,18 @@ a {
     bottom: 0;
     right: 0;
     overflow: auto;
+
+    // 1600
+    @media (min-width: $large-min) and (max-width: $large-max) {
+        background-position-y: -7em;
+        background-position-x: 4em;   
+    }
+
+    // 1366
+    @media (min-width: $small-min) and (max-width: $small-max) {
+        background-position-y: -5em;
+        background-position-x: 4em;
+    }
 }
 
 .page-footer-bg {
@@ -112,10 +124,10 @@ a {
     z-index: 9;
 
     &.verify-cert {
-        transform: translateY(-70%);
-        -webkit-transform: translateY(-70%);
-        -moz-transform: translateY(-70%);
-        -ms-transform: translateY(-70%);
-        -o-transform: translateY(-70%);
+        transform: translateY(-78%);
+        -webkit-transform: translateY(-78%);
+        -moz-transform: translateY(-78%);
+        -ms-transform: translateY(-78%);
+        -o-transform: translateY(-78%);
 }
 }
