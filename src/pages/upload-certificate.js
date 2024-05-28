@@ -122,7 +122,7 @@ const UploadCertificate = () => {
 
                             setApiData(fileData);
                         } else {
-                            setLoginError("Certificate Number and Certificate PDF doesnot match")
+                            setLoginError("Certificate Number and Certificate PDF doesn't match")
                             setShow(true)
                         }
                     } else {
