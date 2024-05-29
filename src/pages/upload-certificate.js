@@ -128,7 +128,7 @@ const UploadCertificate = () => {
                     } else {
                         // Both API calls failed, handle errors
                         const errorData = await fileResponse.json();
-                        setLoginError(errorData.message || "Unable to verify the certification. Please review and try again. Thank you.");
+                        setLoginError(errorData.message || "Unable to verify the certification. Please review and try again.");
                         setShow(true)
                         // Handle error as needed
                     }
@@ -140,7 +140,7 @@ const UploadCertificate = () => {
             }
         } catch (error) {
             console.error('Error during API calls:', error);
-            setLoginError("Unable to verify the certification. Please review and try again. Thank you.")
+            setLoginError("Unable to verify the certification. Please review and try again.")
             setShow(true)
             // Handle error as needed
         } finally {
