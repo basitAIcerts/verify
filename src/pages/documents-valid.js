@@ -1,11 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import { toPng } from 'html-to-image';
+
+import {
+    FacebookShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    FacebookIcon,
+    LinkedinIcon,
+    TwitterIcon
+} from 'react-share';
+
+// Utility function to convert base64 to Blob
+// @ts-ignore: Implicit any for children prop
+const base64ToBlob = (base64) => {
+    const byteCharacters = atob(base64.split(',')[1]);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: 'image/png' });
+};
 
 // @ts-ignore: Implicit any for children prop
 const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const [progress, setProgress] = useState(0);
+    const [imageUrl, setImageUrl] = useState('');
+    const certificateRef = useRef(null);
 
     useEffect(() => {
         if (isLoading) {
@@ -27,19 +56,36 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
         window.location.reload(); // Reload the page
     };
 
+    const generateImage = async () => {
+        if (certificateRef.current) {
+            try {
+                const dataUrl = await toPng(certificateRef.current);
+                const blob = base64ToBlob(dataUrl);
+                const url = URL.createObjectURL(blob);
+                setImageUrl(url);
+            } catch (error) {
+                console.error('Error generating the certificate image:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (apiData) {
+            generateImage();
+        }
+    }, [apiData]);
+
     if (!apiData) {
-        return (
-            <></>
-        );
+        return <></>;
     }
 
     const { message, Details } = apiData;
 
     /**
- * Formats a date string in 'mm/dd/yyyy' format.
- * @param {string | undefined} dateString The date string to format.
- * @returns {string} The formatted date string.
- */
+     * Formats a date string in 'mm/dd/yyyy' format.
+     * @param {string | undefined} dateString The date string to format.
+     * @returns {string} The formatted date string.
+     */
     const formatDate = (dateString) => {
         if (!dateString) return ''; // Handle empty or undefined date string
 
@@ -67,7 +113,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                             <Col xs={{ span: 12 }} md={{ span: 12 }}>
                                                 {Details ? (
                                                     <>
-                                                        <Card className='valid-cerficate-info'>
+                                                        <Card ref={certificateRef} className='valid-cerficate-info'>
                                                             <Card className='dark-card position-relative'>
                                                                 <div className='d-block d-lg-flex justify-content-between align-items-center certificate-internal-info'>
                                                                     <div className='badge-banner'>
@@ -85,7 +131,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                                                 <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number'] || Details['certificateNumber']}</div>
                                                                             </Col>
                                                                             <Col xs={{ span: 12 }} md={{ span: 6 }}>
-
                                                                                 <div className='hash-title'>Certification Name</div>
                                                                                 <div className='hash-info'>{Details['Course Name'] ? Details['Course Name'] : Details['Certification Name'] || Details['course']}</div>
                                                                             </Col>
@@ -129,11 +174,24 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                             </div>
                                                         </Form >
+                                                        <div className='d-flex justify-content-center align-items-center mt-4'>
+                                                            {imageUrl && (
+                                                                <>
+                                                                    <FacebookShareButton url={imageUrl}>
+                                                                        <FacebookIcon size={32} round />
+                                                                    </FacebookShareButton>
+                                                                    <LinkedinShareButton url={imageUrl}>
+                                                                        <LinkedinIcon size={32} round />
+                                                                    </LinkedinShareButton>
+                                                                    <TwitterShareButton url={imageUrl}>
+                                                                        <TwitterIcon size={32} round />
+                                                                    </TwitterShareButton>
+                                                                </>
+                                                            )}
+                                                        </div>
                                                     </>
                                                 ) : (
-
                                                     <>
-
                                                         <div className='badge-banner'>
                                                             <Image
                                                                 src="/backgrounds/invalid-certificate.gif"
