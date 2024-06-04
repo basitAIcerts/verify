@@ -3,37 +3,11 @@ import Image from 'next/image';
 import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
-
-import {
-    FacebookShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    FacebookIcon,
-    LinkedinIcon,
-    TwitterIcon
-} from 'react-share';
-
-// Utility function to convert base64 to Blob
-// @ts-ignore: Implicit any for children prop
-const base64ToBlob = (base64) => {
-    const byteCharacters = atob(base64.split(',')[1]);
-    const byteArrays = [];
-    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-        const slice = byteCharacters.slice(offset, offset + 512);
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
-    }
-    return new Blob(byteArrays, { type: 'image/png' });
-};
+// import { saveAs } from 'file-saver';
 
 // @ts-ignore: Implicit any for children prop
 const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const [progress, setProgress] = useState(0);
-    const [imageUrl, setImageUrl] = useState('');
     const certificateRef = useRef(null);
 
     useEffect(() => {
@@ -56,24 +30,28 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
         window.location.reload(); // Reload the page
     };
 
-    const generateImage = async () => {
+    const handleShare = async () => {
         if (certificateRef.current) {
             try {
                 const dataUrl = await toPng(certificateRef.current);
-                const blob = base64ToBlob(dataUrl);
-                const url = URL.createObjectURL(blob);
-                setImageUrl(url);
+                const blob = await (await fetch(dataUrl)).blob();
+                const file = new File([blob], 'certificate.png', { type: blob.type });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    navigator.share({
+                        files: [file],
+                        title: 'Certification',
+                        text: 'Check out my certification!'
+                    });
+                } else {
+                    // Fallback: save the image locally
+                    // saveAs(blob, 'certificate.png');
+                }
             } catch (error) {
-                console.error('Error generating the certificate image:', error);
+                console.error('Error sharing the certificate:', error);
             }
         }
     };
-
-    useEffect(() => {
-        if (apiData) {
-            generateImage();
-        }
-    }, [apiData]);
 
     if (!apiData) {
         return <></>;
@@ -175,19 +153,9 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                             </div>
                                                         </Form >
                                                         <div className='d-flex justify-content-center align-items-center mt-4'>
-                                                            {imageUrl && (
-                                                                <>
-                                                                    <FacebookShareButton url={imageUrl}>
-                                                                        <FacebookIcon size={32} round />
-                                                                    </FacebookShareButton>
-                                                                    <LinkedinShareButton url={imageUrl}>
-                                                                        <LinkedinIcon size={32} round />
-                                                                    </LinkedinShareButton>
-                                                                    <TwitterShareButton url={imageUrl}>
-                                                                        <TwitterIcon size={32} round />
-                                                                    </TwitterShareButton>
-                                                                </>
-                                                            )}
+                                                            <Button onClick={handleShare} className='heading-info' variant="primary">
+                                                                Share Certificate
+                                                            </Button>
                                                         </div>
                                                     </>
                                                 ) : (
