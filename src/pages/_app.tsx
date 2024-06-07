@@ -11,8 +11,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
      <Head>
-        <title>Verify Certification | Aicerts</title>
-        <link rel="icon" href="https://images.netcomlearning.com/ai-certs/favIcon.svg" />
+        <title>Aicerts Certification</title>
       </Head>
       <Component {...pageProps} router={router} />
     </>

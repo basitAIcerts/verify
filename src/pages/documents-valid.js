@@ -3,88 +3,89 @@ import Image from 'next/image';
 import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
-// import { saveAs } from 'file-saver';
+import Head from 'next/head';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
 
 // @ts-ignore: Implicit any for children prop
 const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const [progress, setProgress] = useState(0);
     const certificateRef = useRef(null);
+    const [certificateImage, setCertificateImage] = useState(null);
 
     useEffect(() => {
         if (isLoading) {
-            // Simulate progress with a timer
             const interval = setInterval(() => {
-                // Update the progress (you can replace this with your API logic)
                 setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
             }, 500);
 
-            // Clean up the interval when the component unmounts or loading is complete
             return () => clearInterval(interval);
         } else {
-            // Reset the progress when loading is complete
             setProgress(0);
         }
     }, [isLoading]);
 
-    const handleLogoClick = () => {
-        window.location.reload(); // Reload the page
-    };
-
-    const handleShare = async () => {
+    useEffect(() => {
         if (certificateRef.current) {
-            try {
-                const dataUrl = await toPng(certificateRef.current);
-                const blob = await (await fetch(dataUrl)).blob();
-                const file = new File([blob], 'certificate.png', { type: blob.type });
-
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    navigator.share({
-                        files: [file],
-                        title: 'Certification',
-                        text: 'Check out my certification!'
-                    });
-                } else {
-                    // Fallback: save the image locally
-                    // saveAs(blob, 'certificate.png');
-                }
-            } catch (error) {
-                console.error('Error sharing the certificate:', error);
-            }
+            toPng(certificateRef.current)
+                .then((dataUrl) => {
+                    // @ts-ignore: Implicit any for children prop
+                    setCertificateImage(dataUrl);
+                })
+                .catch((error) => {
+                    console.error('Error generating certificate image:', error);
+                });
         }
+    }, [apiData]);
+
+    const handleLogoClick = () => {
+        window.location.reload();
     };
 
-    if (!apiData) {
-        return <></>;
-    }
+    const { message, Details } = apiData || {};
 
-    const { message, Details } = apiData;
-
-    /**
-     * Formats a date string in 'mm/dd/yyyy' format.
-     * @param {string | undefined} dateString The date string to format.
-     * @returns {string} The formatted date string.
-     */
+// @ts-ignore: Implicit any for children prop
     const formatDate = (dateString) => {
-        if (!dateString) return ''; // Handle empty or undefined date string
+        if (!dateString) return '';
 
         const date = new Date(dateString);
-        if (isNaN(date.getTime())) return 'Invalid Date'; // Handle invalid date strings
+        if (isNaN(date.getTime())) return 'Invalid Date';
 
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because getMonth() returns zero-based month index
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
         const year = date.getFullYear();
 
         return `${month}/${day}/${year}`;
     };
 
+    const shareUrl = Details?.url;
+    const shareTitle = "Aicerts Certification";
+    const shareDescription = "Aicerts Certification details.";
     return (
         <>
+           <Head>
+           <Head>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={shareTitle} />
+                <meta property="og:description" content={shareDescription} />
+                <meta property="og:image" content={certificateImage || ""} />
+                <meta property="og:url" content={shareUrl} />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={shareTitle} />
+                <meta name="twitter:description" content={shareDescription} />
+                <meta name="twitter:image" content={certificateImage || ""} />
+                <title>{shareTitle}</title>
+                <meta name="description" content={shareDescription} />
+            </Head>
+            </Head>
             <div className='page-bg'>
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>
                         <div className='container-fluid'>
                             <Row className="justify-content-center mt-4 verify-documents">
-                                <h1 className='title text-center'>{message.replace('Certificate', 'Certification')}</h1>
+                                <h1 className='title text-center'>{shareTitle}</h1>
                                 <Col xs={{ span: 12 }} md={{ span: 10 }}>
                                     <Card className='p-0 p-md-4'>
                                         <Row className='justify-content-center'>
@@ -119,7 +120,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                                 </div>
                                                             </Card>
 
-                                                            <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4  '>
+                                                            <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4'>
                                                                 <div className='details'>
                                                                     <div className='heading'>Name</div>
                                                                     <div className='heading-info'>{Details['Name'] || Details['name']}</div>
@@ -131,7 +132,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                                 <div className='details'>
                                                                     <div className='heading'>Expiration Date</div>
                                                                     <div className='heading-info'>
-                                                                        {/* {formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'} */}
                                                                         {Details['Expiration Date'] === "1" || Details['expirationDate'] === "1" ? "-" : formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'}
                                                                     </div>
                                                                 </div>
@@ -145,17 +145,22 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                         </Card>
                                                         <Form className='p-4 p-md-0'>
                                                             <div className='d-flex justify-content-center align-items-center'>
-                                                                {/* Custom button */}
                                                                 <Link href="/" onClick={handleLogoClick} className="golden-upload valid-again">Validate Another</Link>
                                                             </div>
                                                             <div className='information text-center'>
                                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                             </div>
-                                                        </Form >
+                                                        </Form>
                                                         <div className='d-flex justify-content-center align-items-center mt-4'>
-                                                            <Button onClick={handleShare} className='heading-info' variant="primary">
-                                                                Share Certificate
-                                                            </Button>
+                                                            <FacebookShareButton url={shareUrl} title={shareTitle} className='mr-2'>
+                                                                <FacebookIcon size={32} round />
+                                                            </FacebookShareButton>
+                                                            <TwitterShareButton url={shareUrl} title={shareTitle} className='mr-2'>
+                                                                <TwitterIcon size={32} round />
+                                                            </TwitterShareButton>
+                                                            <LinkedinShareButton url={shareUrl} title={shareTitle} className='mr-2'>
+                                                                <LinkedinIcon size={32} round />
+                                                            </LinkedinShareButton>
                                                         </div>
                                                     </>
                                                 ) : (
@@ -168,25 +173,15 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                                 alt='Badge Banner'
                                                             />
                                                         </div>
-                                                        <Form >
+                                                        <Form>
                                                             <div className='d-flex justify-content-center align-items-center'>
-                                                                {/* Custom button */}
-                                                                <label htmlFor="fileInput" className="golden-upload">
-                                                                    Validate again
-                                                                </label>
-
-                                                                {/* File input with an event listener to update the label */}
-                                                                <input
-                                                                    type="file"
-                                                                    id="fileInput"
-                                                                    style={{ display: 'none' }}
-                                                                    onChange={handleFileChange}
-                                                                />
+                                                                <label htmlFor="fileInput" className="golden-upload">Validate again</label>
+                                                                <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
                                                             </div>
                                                             <div className='information text-center pb-md-0 pb-4'>
                                                                 Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                             </div>
-                                                        </Form >
+                                                        </Form>
                                                     </>
                                                 )}
                                             </Col>
@@ -200,7 +195,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
             </div>
             <div className='page-footer-bg'></div>
 
-            {/* Loading Modal for API call */}
             <Modal className='loader-modal' show={isLoading} centered>
                 <Modal.Body>
                     <div className='certificate-loader'>

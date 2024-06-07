@@ -129,10 +129,14 @@
 
 .error-icon {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 195px;
+    height: 195px;
     margin: auto;
-    margin-bottom: 30px;
+
+    &.success-image {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 .warning {

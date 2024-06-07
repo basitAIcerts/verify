@@ -310,50 +310,52 @@ const UploadCertificate = () => {
                                         </Col>
                                     </Row>
 
-                                    {/* Modal for loading */}
-                                    <Modal className='loader-modal' show={isLoading} centered>
-                                        <Modal.Body>
-                                            <div className='certificate-loader'>
-                                                <Image
-                                                    src="/backgrounds/certification-loader.gif"
-                                                    layout='fill'
-                                                    objectFit='contain'
-                                                    alt='Loader'
-                                                />
-                                            </div>
-                                            <ProgressBar now={progress} label={`${progress}%`} />
-                                        </Modal.Body>
-                                    </Modal>
+      <Modal className='loader-modal' show={isLoading} centered>
+        <Modal.Body>
+          <div className='certificate-loader'>
+            <Image
+              src="/backgrounds/login-loading.gif"
+              layout='fill'
+              objectFit='contain'
+              alt='Loader'
+            />
+          </div>
+          <div className='text'>Verifying the certification</div>
+          <ProgressBar now={progress} label={`${progress}%`} />
+        </Modal.Body>
+      </Modal>
 
                                     <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
                                         <Modal.Body className='p-5'>
-                                            {loginError !== '' ? (
-                                                <>
-                                                    <div className='error-icon'>
-                                                        <Image
-                                                            src="/icons/close.svg"
-                                                            layout='fill'
-                                                            objectFit='contain'
-                                                            alt='Loader'
-                                                        />
-                                                    </div>
-                                                    <h3 style={{ color: 'red' }}>{loginError}</h3>
-                                                    <button className='warning' onClick={handleClose}>Ok</button>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <div className='error-icon'>
-                                                        <Image
-                                                            src="/icons/check-mark.svg"
-                                                            layout='fill'
-                                                            objectFit='contain'
-                                                            alt='Loader'
-                                                        />
-                                                    </div>
-                                                    <h3 style={{ color: '#198754' }}>{loginSuccess}</h3>
-                                                    <button className='success' onClick={handleClose}>Ok</button>
-                                                </>
-                                            )}
+                        
+
+{loginError !== '' ? (
+            <>
+              <div className='error-icon'>
+                <Image
+                  src="/icons/invalid-password.gif"
+                  layout='fill'
+                  objectFit='contain'
+                  alt='Loader'
+                />
+              </div>
+              <div className='text' style={{ color: '#ff5500' }}>{loginError}</div>
+              <button className='warning' onClick={handleClose}>Ok</button>
+            </>
+          ) : (
+            <>
+              <div className='error-icon success-image'>
+                <Image
+                  src="/icons/check-mark.svg"
+                  layout='fill'
+                  objectFit='contain'
+                  alt='Loader'
+                />
+              </div>
+              <div className='text' style={{ color: '#198754' }}>{loginSuccess}</div>
+              <button className='success' onClick={handleClose}>Ok</button>
+            </>
+          )}
 
 
                                         </Modal.Body>
