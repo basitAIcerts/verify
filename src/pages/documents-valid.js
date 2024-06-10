@@ -67,7 +67,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={shareTitle} />
                 <meta property="og:description" content={shareDescription} />
-                <meta property="og:image" content={certificateImage || ""} />
+                <meta property="og:image" content={"https://html.aicerts.io/Background123.png" || ""} />
                 <meta property="og:url" content={shareUrl} />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
@@ -75,7 +75,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={shareTitle} />
                 <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={certificateImage || ""} />
+                <meta name="twitter:image" content={"https://html.aicerts.io/Background123.png" || ""} />
                 <title>{shareTitle}</title>
                 <meta name="description" content={shareDescription} />
             </Head>
