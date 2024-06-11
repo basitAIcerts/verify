@@ -7,10 +7,27 @@ import Head from 'next/head';
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
   const isLoginPage = router.pathname === '/';
-  
+
+    const shareTitle = "Aicerts Certification";
+    const shareDescription = "Aicerts Certification details.";
+    const shareImage = "/backgrounds/certificate_template_1.png";
   return (
     <>
      <Head>
+     <meta property="og:type" content="website" />
+                <meta property="og:title" content={shareTitle} />
+                <meta property="og:description" content={shareDescription} />
+                <meta property="og:image" content={"/backgrounds/certificate_template_1.png"} />
+               
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={shareTitle} />
+                <meta name="twitter:description" content={shareDescription} />
+                <meta name="twitter:image" content={"/backgrounds/certificate_template_1.png"} />
+                <title>{shareTitle}</title>
+                <meta name="description" content={shareDescription} />
         <title>Aicerts Certification</title>
       </Head>
       <Component {...pageProps} router={router} />
