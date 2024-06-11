@@ -60,14 +60,16 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const shareUrl = Details?.url;
     const shareTitle = "Aicerts Certification";
     const shareDescription = "Aicerts Certification details.";
+    const shareImage = "/backgrounds/certificate_template_1.png";
+
     return (
         <>
-           <Head>
+          
            <Head>
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={shareTitle} />
                 <meta property="og:description" content={shareDescription} />
-                <meta property="og:image" content={"https://html.aicerts.io/Background123.png" || ""} />
+                <meta property="og:image" content={"/backgrounds/certificate_template_1.png"} />
                 <meta property="og:url" content={shareUrl} />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
@@ -75,11 +77,11 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={shareTitle} />
                 <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={"https://html.aicerts.io/Background123.png" || ""} />
+                <meta name="twitter:image" content={"/backgrounds/certificate_template_1.png"} />
                 <title>{shareTitle}</title>
                 <meta name="description" content={shareDescription} />
             </Head>
-            </Head>
+
             <div className='page-bg'>
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>
