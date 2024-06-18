@@ -4,6 +4,7 @@ import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstra
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 import Head from 'next/head';
+import ShareButton from '../components/shareButton';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
 
 // @ts-ignore: Implicit any for children prop
@@ -60,26 +61,24 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
     const shareUrl = Details?.url;
     const shareTitle = "Aicerts Certification";
     const shareDescription = "Aicerts Certification details.";
-    const shareImage = "/backgrounds/certificate_template_1.png";
+    const shareImage = "/certificate_template_1.png";
+
+    const title = 'Test title';
+    const description = 'Test description';
+    const image = 'https://img.freepik.com/free-vector/gradient-car-rental-social-media-post-template_23-2149228183.jpg';
+    const url = 'https://www.chat-pdf.com/';
 
     return (
         <>
           
            <Head>
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={shareTitle} />
-                <meta property="og:description" content={shareDescription} />
-                <meta property="og:image" content={"/backgrounds/certificate_template_1.png"} />
-                <meta property="og:url" content={shareUrl} />
-                <meta property="og:image:type" content="image/png" />
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={shareTitle} />
-                <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={"/backgrounds/certificate_template_1.png"} />
-                <title>{shareTitle}</title>
-                <meta name="description" content={shareDescription} />
+                <title>{title}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
+                <meta property="og:url" content={url} />
+                <meta property="og:type" content='website' />
             </Head>
 
             <div className='page-bg'>
@@ -154,6 +153,7 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                             </div>
                                                         </Form>
                                                         <div className='d-flex justify-content-center align-items-center mt-4'>
+                                                            <ShareButton title={title} description={description} image={image} url={url} />
                                                             <FacebookShareButton url={shareUrl} title={shareTitle} className='mr-2'>
                                                                 <FacebookIcon size={32} round />
                                                             </FacebookShareButton>
