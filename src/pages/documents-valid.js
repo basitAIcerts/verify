@@ -60,13 +60,10 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
 
     const shareUrl = Details?.url;
     const shareTitle = "Aicerts Certification";
-    const shareDescription = "Aicerts Certification details.";
-    const shareImage = "/certificate_template_1.png";
 
     const title = 'Test title';
     const description = 'Test description';
-    const image = 'https://img.freepik.com/free-vector/gradient-car-rental-social-media-post-template_23-2149228183.jpg';
-    const url = 'https://www.chat-pdf.com/';
+    const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 
     return (
         <>
@@ -77,7 +74,10 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
                 <meta property="og:image" content={image} />
-                <meta property="og:url" content={url} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:url" content={shareUrl} />
                 <meta property="og:type" content='website' />
             </Head>
 
@@ -153,7 +153,6 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
                                                             </div>
                                                         </Form>
                                                         <div className='d-flex justify-content-center align-items-center mt-4'>
-                                                            <ShareButton title={title} description={description} image={image} url={url} />
                                                             <FacebookShareButton url={shareUrl} title={shareTitle} className='mr-2'>
                                                                 <FacebookIcon size={32} round />
                                                             </FacebookShareButton>
