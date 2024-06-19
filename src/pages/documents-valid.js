@@ -4,6 +4,7 @@ import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstra
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 import Head from 'next/head';
+import ShareButton from '../components/shareButton';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
 
 // @ts-ignore: Implicit any for children prop
@@ -59,27 +60,25 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
 
     const shareUrl = Details?.url;
     const shareTitle = "Aicerts Certification";
-    const shareDescription = "Aicerts Certification details.";
-    const shareImage = "/backgrounds/certificate_template_1.png";
+
+    const title = 'Test title';
+    const description = 'Test description';
+    const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 
     return (
         <>
           
            <Head>
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={shareTitle} />
-                <meta property="og:description" content={shareDescription} />
-                <meta property="og:image" content={"/backgrounds/certificate_template_1.png"} />
-                <meta property="og:url" content={shareUrl} />
-                <meta property="og:image:type" content="image/png" />
+                <title>{title}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={shareTitle} />
-                <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={"/backgrounds/certificate_template_1.png"} />
-                <title>{shareTitle}</title>
-                <meta name="description" content={shareDescription} />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:url" content={shareUrl} />
+                <meta property="og:type" content='website' />
             </Head>
 
             <div className='page-bg'>
