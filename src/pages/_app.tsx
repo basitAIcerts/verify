@@ -1,28 +1,36 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../assets/css/styles.scss";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-// import Head from 'next/head';
+import Head from 'next/head';
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
   const isLoginPage = router.pathname === '/';
 
     const shareTitle = "Aicerts Certification";
     const shareDescription = "Aicerts Certification details.";
-    const shareImage = "/backgrounds/certificate_template_1.png";
-  
+    const shareImage = "https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png";
   return (
     <>
-     {/* <Head>
-        <title>Test title</title>
-          <meta name="description" content='Test description' />
-          <meta property="og:title" content='Test title' />
-          <meta property="og:description" content='Test description' />
-          <meta property="og:image" content="https://img.freepik.com/free-vector/gradient-car-rental-social-media-post-template_23-2149228183.jpg" />
-          <meta property="og:url" content='https://nextjs.org/learn/' />
-          <meta property="og:type" content="website" />
-      </Head> */}
+      
+      <Head>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={shareTitle} />
+                <meta property="og:description" content={shareDescription} />
+                <meta property="og:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
+                <meta property="og:image:secure_url" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
+                <meta property="og:image:alt" content={shareTitle} />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={shareTitle} />
+                <meta name="twitter:description" content={shareDescription} />
+                <meta name="twitter:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
+                <title>{shareTitle}</title>
+                <meta name="description" content={shareDescription} />
+            </Head>
       <Component {...pageProps} router={router} />
     </>
   );
