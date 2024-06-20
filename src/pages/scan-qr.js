@@ -4,8 +4,10 @@ import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import Image from 'next/image';
 import Button from '../../shared/button/button'
 import { useRouter } from 'next/router';
+import QRScan from '../components/qr-scanner'
 
 const ScanDocuments = () => {
+    const [apiData, setApiData] = useState(null);
     const router = useRouter();
 
     const handleClick = () => {
@@ -33,7 +35,7 @@ const ScanDocuments = () => {
                                         </div>
                                         <Form >
                                             <div className='d-flex flex-column align-items-center'>                                                
-                                                <Button className="golden-upload scan-qr" label='Open Camera to Scan' />
+                                                <QRScan apiData={apiData} setApiData={setApiData}/>
                                             </div>
                                             <div className='information text-center'>
                                                 Your default camera will open, please keep your certificate ready.
@@ -44,7 +46,7 @@ const ScanDocuments = () => {
                             </Row>
                             <div className='text-center mt-4'>
                                 <p><strong><i>or</i></strong></p>
-                                <Button className='upload cert rounded-0' label="Upload Certificate" onClick={handleClick} />
+                                {/* <Button className='upload cert rounded-0' label="Upload Certificate" onClick={handleClick} /> */}
                             </div>
                         </div>
                     </div>

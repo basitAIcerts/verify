@@ -4,7 +4,6 @@ import DocumentsValid from '../../src/pages/documents-valid';
 import Image from 'next/image';
 import certificate from "../services/certificateServices";
 import Button from '../../shared/button/button';
-
 const UploadCertificate = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
