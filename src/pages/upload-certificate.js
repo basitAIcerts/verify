@@ -3,6 +3,7 @@ import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import DocumentsValid from '../../src/pages/documents-valid';
 import Image from 'next/image';
 import certificate from "../services/certificateServices";
+import Button from '../../shared/button/button';
 
 const UploadCertificate = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +64,7 @@ const UploadCertificate = () => {
     }
 
     console.log(apiData)
-    
+
     // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
         // setSelectedFile(event.target.files[0]);
@@ -230,6 +231,7 @@ const UploadCertificate = () => {
                         <div className='position-relative h-100'>
                             <div className='vertical-center verify-cert'>
                                 <div className='container-fluid'>
+                                    {/* <Button className='back-btn' label='Back' /> */}
                                     <Row className="justify-content-center mt-4 verify-documents">
                                         <h1 className='title text-center'>Please upload your certification to validate.</h1>
                                         <Col md={{ span: 10 }}>
@@ -245,14 +247,14 @@ const UploadCertificate = () => {
                                                                 value={certificateNumber}
                                                                 // @ts-ignore: Implicit any for children prop
                                                                 // onChange={(e) => setCertificateNumber(e.target.value)}
-                                                                
+
                                                                 onChange={(e) => {
                                                                     // Get the input value
                                                                     let inputValue = e.target.value;
-                                                    
+
                                                                     // Remove spaces from the input value
                                                                     inputValue = inputValue.replace(/\s/g, '');
-                                                    
+
                                                                     // Validate alphanumeric and character limit
                                                                     if (/^[a-zA-Z0-9]*$/.test(inputValue) && inputValue.length <= 20) {
                                                                         // If input is valid, update state
@@ -281,7 +283,7 @@ const UploadCertificate = () => {
                                                         ) : (
                                                             <p className="selected-file-name">&nbsp;</p>
                                                         )}
-                                                        <label htmlFor="fileInput" className="golden-upload">
+                                                        <label htmlFor="fileInput" className="golden-upload mt-0">
                                                             Upload Certification
                                                         </label>
 
@@ -296,66 +298,82 @@ const UploadCertificate = () => {
                                                     <div className='information text-center'>
                                                         Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                     </div>
-                                                    <div className='d-flex justify-content-center align-items-center'>
-                                                        <label 
-                                                            onClick={handleSubmit} 
+                                                    {/* <div className='d-flex justify-content-center align-items-center'>
+                                                        <label
+                                                            onClick={handleSubmit}
                                                             className={`golden-upload-cert ${selectedFile ? 'has-file' : ''}`}
                                                         >
                                                             Verify
                                                         </label>
-                                                    </div>
+                                                    </div> */}
 
                                                 </Form >
                                             </Card>
                                         </Col>
                                     </Row>
 
-      <Modal className='loader-modal' show={isLoading} centered>
-        <Modal.Body>
-          <div className='certificate-loader'>
-            <Image
-              src="/backgrounds/login-loading.gif"
-              layout='fill'
-              objectFit='contain'
-              alt='Loader'
-            />
-          </div>
-          <div className='text'>Verifying the certification</div>
-          <ProgressBar now={progress} label={`${progress}%`} />
-        </Modal.Body>
-      </Modal>
+                                    <div className='d-flex justify-content-center mt-4'>
+                                    {!selectedFile ? (
+                                        <Button
+                                           
+                                            className={`golden rounded-0`}
+                                            label='Submit'
+                                            disabled
+                                        />
+                                    ) : (
+                                        <Button
+                                            className={`golden rounded-0`}
+                                            label='Submit'
+                                            onClick={handleSubmit}                                            
+                                        />
+                                    )}
+
+                                    </div>
+
+                                    <Modal className='loader-modal' show={isLoading} centered>
+                                        <Modal.Body>
+                                            <div className='certificate-loader'>
+                                                <Image
+                                                    src="/backgrounds/login-loading.gif"
+                                                    layout='fill'
+                                                    objectFit='contain'
+                                                    alt='Loader'
+                                                />
+                                            </div>
+                                            <div className='text'>Verifying the certification</div>
+                                            <ProgressBar now={progress} label={`${progress}%`} />
+                                        </Modal.Body>
+                                    </Modal>
 
                                     <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
                                         <Modal.Body className='p-5'>
-                        
-
-{loginError !== '' ? (
-            <>
-              <div className='error-icon'>
-                <Image
-                  src="/icons/invalid-password.gif"
-                  layout='fill'
-                  objectFit='contain'
-                  alt='Loader'
-                />
-              </div>
-              <div className='text' style={{ color: '#ff5500' }}>{loginError}</div>
-              <button className='warning' onClick={handleClose}>Ok</button>
-            </>
-          ) : (
-            <>
-              <div className='error-icon success-image'>
-                <Image
-                  src="/icons/check-mark.svg"
-                  layout='fill'
-                  objectFit='contain'
-                  alt='Loader'
-                />
-              </div>
-              <div className='text' style={{ color: '#198754' }}>{loginSuccess}</div>
-              <button className='success' onClick={handleClose}>Ok</button>
-            </>
-          )}
+                                            {loginError !== '' ? (
+                                                <>
+                                                    <div className='error-icon'>
+                                                        <Image
+                                                            src="/icons/invalid-password.gif"
+                                                            layout='fill'
+                                                            objectFit='contain'
+                                                            alt='Loader'
+                                                        />
+                                                    </div>
+                                                    <div className='text' style={{ color: '#ff5500' }}>{loginError}</div>
+                                                    <button className='warning' onClick={handleClose}>Ok</button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className='error-icon success-image'>
+                                                        <Image
+                                                            src="/icons/check-mark.svg"
+                                                            layout='fill'
+                                                            objectFit='contain'
+                                                            alt='Loader'
+                                                        />
+                                                    </div>
+                                                    <div className='text' style={{ color: '#198754' }}>{loginSuccess}</div>
+                                                    <button className='success' onClick={handleClose}>Ok</button>
+                                                </>
+                                            )}
 
 
                                         </Modal.Body>

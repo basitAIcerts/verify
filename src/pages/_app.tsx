@@ -13,7 +13,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const shareImage = "/backgrounds/certificate_template_1.png";
   return (
     <>
-     <Head>
+     {/* <Head>
      <meta property="og:type" content="website" />
                 <meta property="og:title" content={shareTitle} />
                 <meta property="og:description" content={shareDescription} />
@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <title>{shareTitle}</title>
                 <meta name="description" content={shareDescription} />
         <title>Aicerts Certification</title>
-      </Head>
+      </Head> */}
       <Component {...pageProps} router={router} />
     </>
   );
