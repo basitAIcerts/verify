@@ -334,13 +334,13 @@ const UploadCertificate = () => {
                                         <Modal.Body>
                                             <div className='certificate-loader'>
                                                 <Image
-                                                    src="/backgrounds/login-loading.gif"
+                                                    src="/backgrounds/verification.gif"
                                                     layout='fill'
                                                     objectFit='contain'
                                                     alt='Loader'
                                                 />
                                             </div>
-                                            <div className='text'>Verifying the certification</div>
+                                            <div className='text'>Verification In Progress</div>
                                             <ProgressBar now={progress} label={`${progress}%`} />
                                         </Modal.Body>
                                     </Modal>

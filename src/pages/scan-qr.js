@@ -3,12 +3,18 @@ import Navigation from '@/app/navigation';
 import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import Image from 'next/image';
 import Button from '../../shared/button/button'
+import { useRouter } from 'next/router';
 
 const ScanDocuments = () => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push("/verify-documents");
+    }
 
     return (
         <>
-            <Navigation />
+            {/* <Navigation /> */}
             <div className='page-bg'>
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>
@@ -38,7 +44,7 @@ const ScanDocuments = () => {
                             </Row>
                             <div className='text-center mt-4'>
                                 <p><strong><i>or</i></strong></p>
-                                <Button className='upload cert rounded-0' label="Upload Certificate" />
+                                <Button className='upload cert rounded-0' label="Upload Certificate" onClick={handleClick} />
                             </div>
                         </div>
                     </div>
