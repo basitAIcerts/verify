@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../assets/css/styles.scss";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+// import Head from 'next/head';
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
   const isLoginPage = router.pathname === '/';
@@ -11,6 +11,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const shareTitle = "Aicerts Certification";
     const shareDescription = "Aicerts Certification details.";
     const shareImage = "/backgrounds/certificate_template_1.png";
+  
   return (
     <>
      {/* <Head>

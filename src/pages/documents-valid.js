@@ -1,3 +1,4 @@
+<<<<<<< HEAD
     import React, { useState, useEffect, useRef } from 'react';
     import Image from 'next/legacy/image';
     import { Form, Row, Col, Card, Modal, ProgressBar, Button, InputGroup } from 'react-bootstrap';
@@ -5,6 +6,16 @@
     import { toPng } from 'html-to-image';
     import Head from 'next/head';
     import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
+=======
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
+import Link from 'next/link';
+import { toPng } from 'html-to-image';
+import Head from 'next/head';
+import ShareButton from '../components/shareButton';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
+>>>>>>> 297adb85a2beec3276c52d3cc9629284dc1a0e69
 
     // @ts-ignore: Implicit any for children prop
     const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
