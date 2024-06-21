@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '@/app/navigation';
 import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import Image from 'next/image';
 import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
 import QRScan from '../components/qr-scanner';
+import QrReader from '@/components/QrReader';
 
 const ScanDocuments = () => {
     const [apiData, setApiData] = useState(null);
@@ -18,6 +19,11 @@ const ScanDocuments = () => {
     const toggleScanner = () => {
         setScannerActive(!scannerActive);
     };
+
+    useEffect(() => {
+        console.log('apiData', apiData);
+    }, [apiData]);
+
 
     return (
         <>
@@ -41,9 +47,10 @@ const ScanDocuments = () => {
                                             </div>
                                         ) : (
                                             <div className='d-flex flex-column align-items-center'>
-                                                <QRScan apiData={apiData} setApiData={setApiData} />
+                                                <QrReader apiData={apiData} setApiData={toggleScanner} />
                                             </div>
                                         )}
+                                        {/* {scannerActive && <QrReader />} */}
                                          <div className='text-center'>
                                             <Button
                                                 className="golden-upload scan-qr p-[14px] gap-[10px]" 
