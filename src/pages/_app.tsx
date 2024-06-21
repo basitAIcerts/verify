@@ -20,7 +20,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <meta property="og:description" content={shareDescription} />
                 <meta property="og:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
                 <meta property="og:image:secure_url" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
-                <meta property="og:image:alt" content={shareTitle} />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />

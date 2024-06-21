@@ -1,86 +1,98 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Form, Row, Col, Card, Modal, ProgressBar, Button } from 'react-bootstrap';
+import { Form, Row, Col, Card, Modal, ProgressBar, Button, InputGroup } from 'react-bootstrap';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 import Head from 'next/head';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
 
-// @ts-ignore: Implicit any for children prop
-const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
-    const [progress, setProgress] = useState(0);
-    const certificateRef = useRef(null);
-    const [certificateImage, setCertificateImage] = useState(null);
+    // @ts-ignore: Implicit any for children prop
+    const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
+        const [progress, setProgress] = useState(0);
+        const certificateRef = useRef(null);
+        const [certificateImage, setCertificateImage] = useState(null);
+        const [shareModal, setShareModal] = useState(false);
+        const [copied, setCopied] = useState(false);
 
-    useEffect(() => {
-        if (isLoading) {
-            const interval = setInterval(() => {
-                setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
-            }, 500);
+        const handleClose = () => setShareModal(false);
 
-            return () => clearInterval(interval);
-        } else {
-            setProgress(0);
-        }
-    }, [isLoading]);
+        useEffect(() => {
+            if (isLoading) {
+                const interval = setInterval(() => {
+                    setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
+                }, 500);
 
-    useEffect(() => {
-        if (certificateRef.current) {
-            toPng(certificateRef.current)
-                .then((dataUrl) => {
-                    // @ts-ignore: Implicit any for children prop
-                    setCertificateImage(dataUrl);
-                })
-                .catch((error) => {
-                    console.error('Error generating certificate image:', error);
-                });
-        }
-    }, [apiData]);
+                return () => clearInterval(interval);
+            } else {
+                setProgress(0);
+            }
+        }, [isLoading]);
 
-    const handleLogoClick = () => {
-        window.location.reload();
-    };
+        useEffect(() => {
+            if (certificateRef.current) {
+                toPng(certificateRef.current)
+                    .then((dataUrl) => {
+                        // @ts-ignore: Implicit any for children prop
+                        setCertificateImage(dataUrl);
+                    })
+                    .catch((error) => {
+                        console.error('Error generating certificate image:', error);
+                    });
+            }
+        }, [apiData]);
 
-    const { message, Details } = apiData || {};
+        const handleLogoClick = () => {
+            window.location.reload();
+        };
 
-// @ts-ignore: Implicit any for children prop
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
+        const { message, Details } = apiData || {};
 
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return 'Invalid Date';
+        const shareValue = apiData.Details["Polygon URL"];
 
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const year = date.getFullYear();
+        const copyToClipboard = () => {
+            navigator.clipboard.writeText(shareValue).then(() => {
+                setCopied(true)
+                setTimeout(() => setCopied(false), 3000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        };
 
-        return `${month}/${day}/${year}`;
-    };
+        // @ts-ignore: Implicit any for children prop
+        const formatDate = (dateString) => {
+            if (!dateString) return '';
+
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return 'Invalid Date';
+
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const year = date.getFullYear();
+
+            return `${month}/${day}/${year}`;
+        };
 
     const shareUrl = Details?.url;
     const shareTitle = "Aicerts Certification";
-    const shareDescription = "Aicerts Certification details.";
-    const shareImage = "https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png";
+
+    const title = 'Test title';
+    const description = 'Test description';
+    const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 
     return (
         <>
           
            <Head>
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={shareTitle} />
-                <meta property="og:description" content={shareDescription} />
-                <meta property="og:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
-                <meta property="og:image:secure_url" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
-                <meta property="og:url" content={shareUrl} />
-                <meta property="og:image:type" content="image/png" />
+                <title>{title}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={shareTitle} />
-                <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
-                <title>{shareTitle}</title>
-                <meta name="description" content={shareDescription} />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:url" content={shareUrl} />
+                <meta property="og:type" content='website' />
             </Head>
 
             <div className='page-bg'>
@@ -216,3 +228,4 @@ const DocumentsValid = ({ handleFileChange, apiData, isLoading }) => {
 }
 
 export default DocumentsValid;
+

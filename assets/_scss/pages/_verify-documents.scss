@@ -185,6 +185,8 @@
         .cerficate-external-info {
             .details {
                 margin-bottom: 14px;
+                text-align: left;
+                
                 .heading {
                     color: #4D5060;
                     font-size: 16px;
@@ -225,7 +227,7 @@
         .dark-card {  
             background: #1C1F30;
             border: none;
-            padding: 30px 40px;
+            padding: 30px 40px 30px 0;
             margin-bottom: 50px;
 
             &:after {
@@ -254,8 +256,33 @@
             .certificate-internal-info {
                 .badge-banner {
                     position: relative;
-                    width: 330px;
-                    height: 196px;
+                    width: 190px;
+                    height: 150px;
+                    margin: 0;
+                }
+
+                .info {
+                    .hash-data {
+                        color: #FFF;
+                        font-family: $font-family;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        padding: 14px 30px;
+                        background: #494C59;
+                        width: fit-content;
+                    }
+
+                    .cert-title {
+                        color: #FFF;
+                        font-family: $font-family;
+                        font-size: 28px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        margin-top: 20px;
+                    }
                 }
 
                 .hash-info {
@@ -302,6 +329,31 @@
         }
     }
 
+    .share-cert {
+        .d-flex {
+            column-gap: 20px;
+        }
+
+        .hero-title {
+            color: #5B5A5F;
+            text-align: center;
+            font-family: $font-family;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 28px; /* 155.556% */
+            margin: 40px 0 20px;
+        }
+        .share-icon {
+            width: 40px;
+            height: 40px;
+            line-height: 30px;
+            padding: 10px;
+            background: #F3F3F3;
+            cursor: pointer;
+        }
+    }
+
     // 1600
     @media (min-width: $large-min) and (max-width: $large-max) {
         .card {
@@ -333,6 +385,18 @@
 
             .information {
                 margin-top: 10px;
+            }
+
+            .valid-cerficate-info {    
+                .dark-card {
+                    .certificate-internal-info {
+                        .info {
+                            .cert-title {
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -374,6 +438,14 @@
             .dark-card {
                 padding: 16px 20px;
                 margin-bottom: 20px;
+
+                .certificate-internal-info {
+                    .info {
+                        .cert-title {
+                            font-size: 22px;
+                        }
+                    }
+                }
             }
         }
 
@@ -421,6 +493,14 @@
             .dark-card {
                 padding: 16px 20px;
                 margin-bottom: 20px;
+
+                .certificate-internal-info {
+                    .info {
+                        .cert-title {
+                            font-size: 20px;
+                        }
+                    }
+                }
             }
         }
 
@@ -489,6 +569,43 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+.share-link {
+    .modal-content {
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        
+        .modal-header {
+            background: #F3F3F3;
+
+            .modal-title {
+                color: #2F3847;
+                font-family: $font-family;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+        }
+
+        .modal-body {
+            padding: 20px 30px;
+
+            .form-label {
+                color: #000;
+                font-family: $font-family;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                margin-bottom: 20px;
             }
         }
     }

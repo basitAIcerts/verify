@@ -25,6 +25,6 @@
 
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/services/userServices.ts", "src/services/certificaeServices.ts", "src/services/index.js", "src/services/certificaeServices.ts", "src/services/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/services/userServices.ts", "src/services/certificaeServices.ts", "src/services/index.js", "src/services/certificaeServices.ts", "src/services/index.js", "src/components/qr-scanner.js"],
   "exclude": ["node_modules"]
 }
