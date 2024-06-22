@@ -9,7 +9,7 @@ import axios from "axios";
 
 //@ts-ignore
 const QrReader = ({ apiData, setApiData }) => {
-  // QR States
+  // QR StatesDetails
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);

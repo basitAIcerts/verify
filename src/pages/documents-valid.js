@@ -45,9 +45,8 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
             window.location.reload();
         };
 
-        const { message, Details } = apiData || {};
 
-        const shareValue = apiData.Details["Polygon URL"];
+        const shareValue = apiData?.Details["Polygon URL"];
 
         const copyToClipboard = () => {
             navigator.clipboard.writeText(shareValue).then(() => {
@@ -72,7 +71,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
             return `${month}/${day}/${year}`;
         };
 
-    const shareUrl = Details?.url;
+    const shareUrl = apiData?.Details?.url;
     const shareTitle = "Aicerts Certification";
 
     const title = 'Test title';
@@ -105,7 +104,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                                     <Card className='p-0 p-md-4'>
                                         <Row className='justify-content-center'>
                                             <Col xs={{ span: 12 }} md={{ span: 12 }}>
-                                                {Details ? (
+                                                {apiData?.Details ? (
                                                     <>
                                                         <Card ref={certificateRef} className='valid-cerficate-info'>
                                                             <Card className='dark-card position-relative'>
@@ -122,11 +121,11 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                                                                         <Row className='position-relative'>
                                                                             <Col className='border-right' xs={{ span: 12 }} md={{ span: 6 }}>
                                                                                 <div className='hash-title'>Certification Number</div>
-                                                                                <div className='hash-info'>{Details['Certificate Number'] ? Details['Certificate Number'] : Details['Certification Number'] || Details['certificateNumber']}</div>
+                                                                                <div className='hash-info'>{apiData?.Details['Certificate Number'] ? apiData?.Details['Certificate Number'] : apiData?.Details['Certification Number'] || apiData?.Details['certificateNumber']}</div>
                                                                             </Col>
                                                                             <Col xs={{ span: 12 }} md={{ span: 6 }}>
                                                                                 <div className='hash-title'>Certification Name</div>
-                                                                                <div className='hash-info'>{Details['Course Name'] ? Details['Course Name'] : Details['Certification Name'] || Details['course']}</div>
+                                                                                <div className='hash-info'>{apiData?.Details['Course Name'] ? apiData?.Details['Course Name'] : apiData?.Details['Certification Name'] || apiData?.Details['course']}</div>
                                                                             </Col>
                                                                             <hr />
                                                                             <hr className='vertical-line' />
@@ -138,21 +137,21 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                                                             <div className='cerficate-external-info d-block d-lg-flex justify-content-between align-items-center text-md-left text-center mb-md-0 mb-4'>
                                                                 <div className='details'>
                                                                     <div className='heading'>Name</div>
-                                                                    <div className='heading-info'>{Details['Name'] || Details['name']}</div>
+                                                                    <div className='heading-info'>{apiData?.Details['Name'] || apiData?.Details['name']}</div>
                                                                 </div>
                                                                 <div className='details'>
                                                                     <div className='heading'>Grant Date</div>
-                                                                    <div className='heading-info'>{formatDate(Details['Grant Date'] || Details['grantDate'])}</div>
+                                                                    <div className='heading-info'>{formatDate(apiData?.Details['Grant Date'] || apiData?.Details['grantDate'])}</div>
                                                                 </div>
                                                                 <div className='details'>
                                                                     <div className='heading'>Expiration Date</div>
                                                                     <div className='heading-info'>
-                                                                        {Details['Expiration Date'] === "1" || Details['expirationDate'] === "1" ? "-" : formatDate(Details['Expiration Date'] || Details['expirationDate']) || 'No Expiration Date available'}
+                                                                        {apiData?.Details['Expiration Date'] === "1" || apiData?.Details['expirationDate'] === "1" ? "-" : formatDate(apiData?.Details['Expiration Date'] || apiData?.Details['expirationDate']) || 'No Expiration Date available'}
                                                                     </div>
                                                                 </div>
 
                                                                 <div className='details varification-info'>
-                                                                    <Button href={Details['Polygon URL'] ? Details['Polygon URL'] : Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
+                                                                    <Button href={apiData?.Details['Polygon URL'] ? apiData?.Details['Polygon URL'] : apiData?.Details['Verify On Blockchain']} target="_blank" className='heading-info' variant="primary">
                                                                         Verify on Blockchain
                                                                     </Button>
                                                                 </div>
