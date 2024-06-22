@@ -11,7 +11,7 @@ const UploadCertificate = () => {
     const [apiData, setApiData] = useState(null);
     const [progress, setProgress] = useState(0);
     const [certificateNumber, setCertificateNumber] = useState(null);
-    const [rendered, setRendered] = useState(false);
+    // const [rendered, setRendered] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
@@ -184,11 +184,11 @@ const UploadCertificate = () => {
 
     
 
-    if (!rendered) {
-        return (
-            <></>
-        );
-    }
+    // if (!rendered) {
+    //     return (
+    //         <></>
+    //     );
+    // }
 
     return (
 
