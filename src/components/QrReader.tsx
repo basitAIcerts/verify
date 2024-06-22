@@ -70,7 +70,7 @@ const QrReader = ({ apiData, setApiData }) => {
            } catch (error:any) {
              console.log("Error", error.response.data);
              if(error.response.data.message === 'Certification has revoked') {
-                router.push('/invalid-certificate');
+                router.push('/certificate-revoked');
              } else{
                 router.push('/invalid-certificate')
             }

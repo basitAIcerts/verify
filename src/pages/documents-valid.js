@@ -72,7 +72,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
         };
 
     const shareUrl = apiData?.Details?.url;
-    const shareTitle = "Aicerts Certification";
+    const shareTitle =  apiData?.message || "Certification is Valid";
 
     const title = 'Test title';
     const description = 'Test description';

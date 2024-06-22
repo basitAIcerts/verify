@@ -109,6 +109,12 @@ const UploadCertificate = () => {
                         message: certificateData?.message
                     });
                 } else {
+
+                    const errorData = await certificateResponse.json();
+                    if(errorData.message=='Certification has revoked') {
+                        router.push('/certificate-revoked')
+                        return
+                    }
                     // If the first API call fails, try another API call with the file
                     const formData = new FormData();
                     formData.append('pdfFile', selectedFile);
@@ -158,68 +164,25 @@ const UploadCertificate = () => {
         }
     };
 
-    useEffect(() => {
-        // Extract encrypted link from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const qValue = urlParams.get('q');
-        const ivValue = urlParams.get('iv');
-
-        if (qValue && ivValue) {
-            handleVerifyCertificate(qValue, ivValue);
-            setRendered(true)
-        } else {
-            setRendered(true)
-        }
-    }, []);
-
-    // @ts-ignore: Implicit any for children prop
-    const handleVerifyCertificate = (qValue, ivValue) => {
-        // Call the verify API with the encrypted link
-        const data = {
-            qValue, ivValue
-        }
-        setIsLoading(true)
-
-        certificate?.verifyCertificate(data, (response) => {
-            // Handle the API response here (success or error)
-
-            if (response.status == "SUCCESS") {
-                if (response.data.status === 'PASSED') {
-                    // @ts-ignore: Implicit any for children prop
-                    setApiData((prevData) => {
-                        // Perform actions based on prevData and update state
-                        return {
-                            message: "Certificate is Valid",
-                            Details: response.data.data
-                        };
-                    });
-
-                    // @ts-ignore: Implicit any for children prop
-                    setData(response.data.data)
-
-                    setIsLoading(false)
-
-                } else if (response.data.status === 'FAILED') {
-                    // @ts-ignore: Implicit any for children prop
-                    setApiData((prevData) => {
-                        // Perform actions based on prevData and update state
-                        return {
-                            message: "Certificate is not Valid",
-                        };
-                    });
-                    setIsLoading(false)
-                } else {
-                    // Handle verification error
-                    console.error('Verification failed!', response.error);
-                }
-            } else {
-                console.error('Verification failed!', response.error);
-            }
 
 
-            setIsLoading(false);
-        });
-    };
+    // useEffect(() => {
+    //     // Extract encrypted link from the URL
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const qValue = urlParams.get('q');
+    //     const ivValue = urlParams.get('iv');
+
+    //     if (qValue && ivValue) {
+    //         handleVerifyCertificate(qValue, ivValue);
+    //         setRendered(true)
+    //     } else {
+    //         setRendered(true)
+    //     }
+    // }, []);
+
+ 
+
+    
 
     if (!rendered) {
         return (
