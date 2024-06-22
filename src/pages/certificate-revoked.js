@@ -10,7 +10,10 @@ const RevokedCertificate = () => {
     const router = useRouter();
 
     const handleUploadRedirect = () => {
-        router.push('/');
+        router.push('/'); // Redirect to the home page
+    }
+    const handlebackRedirect = () => {
+        router.push('/verify-documents');
     }
 
     return (
@@ -20,7 +23,7 @@ const RevokedCertificate = () => {
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>
                         <div className='container-fluid'>
-                            <Button className='back-btn' label='Back' />
+                            <Button className='back-btn' label='Back' onClick={handlebackRedirect}/>
                             <Row className="justify-content-center mt-4 verify-documents">
                                 <h1 className='title text-center'>Your Certification has been Revoked.</h1>
                                 <Col md={{ span: 10 }}>

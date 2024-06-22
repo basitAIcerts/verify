@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import UploadCertificate from './upload-certificate';
+import Navigation from '@/app/navigation';
 
 const VerifyDocuments = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,7 @@ const VerifyDocuments = () => {
 
     return (
         <div>
+            <Navigation />
             <UploadCertificate
             // @ts-ignore: Implicit any for children prop
                 handleFileChange={handleFileChange}

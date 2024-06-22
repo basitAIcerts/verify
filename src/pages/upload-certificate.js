@@ -4,6 +4,8 @@ import DocumentsValid from '../../src/pages/documents-valid';
 import Image from 'next/image';
 import certificate from "../services/certificateServices";
 import Button from '../../shared/button/button';
+import { useRouter } from 'next/router';
+
 const UploadCertificate = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
@@ -17,7 +19,7 @@ const UploadCertificate = () => {
 
     const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-
+    const router = useRouter(); 
     useEffect(() => {
         if (isLoading) {
             // Simulate progress with a timer only in the UI (not ideal)
@@ -122,12 +124,20 @@ const UploadCertificate = () => {
 
                             setApiData(fileData);
                         } else {
+                            router.push('/invalid-certificate')
                             setLoginError("Certificate Number and Certificate PDF doesn't match")
                             setShow(true)
                         }
                     } else {
                         // Both API calls failed, handle errors
-                        const errorData = await fileResponse.json();
+                          const errorData = await fileResponse.json();
+                        if(errorData.message=='Certification has revoked') {
+                            router.push('/certificate-revoked')
+                        }
+                        else{
+                            router.push('/invalid-certificate')
+                        }
+                        console.error('Error during API calls:', errorData.message);
                         setLoginError(errorData.message || "Unable to verify the certification. Please review and try again.");
                         setShow(true)
                         // Handle error as needed
@@ -344,7 +354,7 @@ const UploadCertificate = () => {
                                         </Modal.Body>
                                     </Modal>
 
-                                    <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
+                                    {/* <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
                                         <Modal.Body className='p-5'>
                                             {loginError !== '' ? (
                                                 <>
@@ -376,7 +386,7 @@ const UploadCertificate = () => {
 
 
                                         </Modal.Body>
-                                    </Modal>
+                                    </Modal> */}
                                 </div>
                             </div>
                         </div>
