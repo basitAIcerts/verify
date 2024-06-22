@@ -48,19 +48,22 @@ const QrReader = ({ apiData, setApiData }) => {
             // First API call with QR Scanned data
            try{
             const qrScanResponse = await axios.post(`${apiUrl}/api/decode-qr-scan`, {
-                receivedCode: paramValue.toString(),
+                receivedCode: url,
             }, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-
             if (qrScanResponse.status === 200) {
                 const responseData = qrScanResponse.data;
                 console.log("The response", responseData.data);
                 console.log("The response", responseData?.details?.url);
-                window.location.href = responseData?.details?.url;
-                setApiData();
+                setApiData({
+                  // @ts-ignore: Implicit any for children prop
+                  Details: responseData?.Details,
+                  message: responseData?.message
+              });
+                // window.location.href = responseData?.details?.url;
                 scanFailed = false;
             }
 
@@ -143,6 +146,7 @@ const QrReader = ({ apiData, setApiData }) => {
   }, [qrOn]);
 
   return (
+    <>
     <div className="qr-reader">
       {/* QR */}
       <video ref={videoEl}></video>
@@ -171,6 +175,7 @@ const QrReader = ({ apiData, setApiData }) => {
         </p>
       )}
     </div>
+    </>
   );
 };
 

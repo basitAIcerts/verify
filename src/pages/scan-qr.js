@@ -6,10 +6,12 @@ import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
 import QRScan from '../components/qr-scanner';
 import QrReader from '@/components/QrReader';
-
+import DocumentsValid from '../../src/pages/documents-valid';
 const ScanDocuments = () => {
     const [apiData, setApiData] = useState(null);
     const [scannerActive, setScannerActive] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const handleClick = () => {
@@ -24,8 +26,30 @@ const ScanDocuments = () => {
         console.log('apiData', apiData);
     }, [apiData]);
 
+      // @ts-ignore: Implicit any for children prop
+      const handleFileChange = async (event) => {
+        // setSelectedFile(event.target.files[0]);
+
+        const file = event.target.files[0];
+        const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+
+        if (file && file.size > maxSize) {
+            // File size exceeds the maximum allowed size
+            alert("File size exceeds 2MB limit. Please select a smaller file.");
+            setSelectedFile(null); // Clear the selected file
+        } else {
+            // File size is within the limit, proceed with the upload
+            setSelectedFile(file);
+        }
+    }
 
     return (
+        <>
+        {apiData ? (
+            <>
+                <DocumentsValid handleFileChange={handleFileChange} apiData={apiData} isLoading={isLoading} />
+            </>
+        ) : (
         <>
             {/* <Navigation /> */}
             <div className='page-bg'>
@@ -47,7 +71,7 @@ const ScanDocuments = () => {
                                             </div>
                                         ) : (
                                             <div className='d-flex flex-column align-items-center'>
-                                                <QrReader apiData={apiData} setApiData={toggleScanner} />
+                                                <QrReader apiData={apiData} setApiData={setApiData} />
                                             </div>
                                         )}
                                         {/* {scannerActive && <QrReader />} */}
@@ -83,6 +107,8 @@ const ScanDocuments = () => {
             </div>
             <div className='page-footer-bg'></div>
         </>
+                                    )}
+                                    </>
     );
 };
 
