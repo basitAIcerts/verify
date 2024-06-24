@@ -221,9 +221,12 @@
                         padding: 14px 40px;
                     }
                 }
+
+             
+               
             }
         }
-
+        
         .dark-card {  
             background: #1C1F30;
             border: none;
@@ -609,4 +612,22 @@
             }
         }
     }
+   
+
+}
+
+.horizontal-line-cert{
+    // color:#EAEEF5;
+    width: 70%;
+    align-self: center;
+    
+}
+
+.share-text{
+    font-family:"Montserrat";
+font-size: 18px;
+font-weight: 600;
+line-height: 28px;
+text-align: center;
+color: #5B5A5F;
 }
