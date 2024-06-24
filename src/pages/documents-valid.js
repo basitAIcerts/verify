@@ -71,7 +71,8 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
             return `${month}/${day}/${year}`;
         };
 
-    const shareUrl = apiData?.Details?.url;
+    const Url = apiData?.Details?.url;
+    let shareUrl = Url.replace('/verify-documents', '');
     const shareTitle =  apiData?.message || "Certification is Valid";
 
     const title = 'Test title';
