@@ -31,7 +31,7 @@ const VerifyDocuments = () => {
                 setApiData(responseData);
 
             } catch (error) {
-                console.error('Error uploading file:', error);
+                // console.error('Error uploading file:', error);
                 // Handle error
             } finally {
                 setIsLoading(false);

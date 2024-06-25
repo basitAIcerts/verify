@@ -36,7 +36,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                         setCertificateImage(dataUrl);
                     })
                     .catch((error) => {
-                        console.error('Error generating certificate image:', error);
+                        // console.error('Error generating certificate image:', error);
                     });
             }
         }, [apiData]);
@@ -53,7 +53,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                 setCopied(true)
                 setTimeout(() => setCopied(false), 3000);
             }).catch(err => {
-                console.error('Failed to copy text: ', err);
+                // console.error('Failed to copy text: ', err);
             });
         };
 
@@ -71,8 +71,10 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
             return `${month}/${day}/${year}`;
         };
 
-    const Url = apiData?.Details?.url;
-    let shareUrl = Url.replace('/verify-documents', '');
+        let shareUrl = apiData?.Details?.url;
+        if(shareUrl) {
+             shareUrl = shareUrl.replace('/verify-documents', '');
+        }
     const shareTitle =  apiData?.message || "Certification is Valid";
 
     const title = 'Test title';
