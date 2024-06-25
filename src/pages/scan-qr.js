@@ -30,9 +30,7 @@ const ScanDocuments = () => {
         setScannerActive(!scannerActive);
     };
 
-    useEffect(() => {
-        console.log('apiData', apiData);
-    }, [apiData]);
+  
 
     useEffect(() => {
         // Extract encrypted link from the URL
@@ -53,6 +51,7 @@ const ScanDocuments = () => {
             }
             setRendered(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
         // @ts-ignore: Implicit any for children prop
@@ -95,7 +94,7 @@ const ScanDocuments = () => {
                     setShow(true)
                 }
             } catch (error) {
-                console.error('Error during API calls:', error);
+                // console.error('Error during API calls:', error);
                 setLoginError("Unable to verify the certification. Please review and try again.")
                 setShow(true)
                 // Handle error as needed
@@ -142,10 +141,10 @@ const ScanDocuments = () => {
                     setIsLoading(false)
                 } else {
                     // Handle verification error
-                    console.error('Verification failed!', response.error);
+                    // console.error('Verification failed!', response.error);
                 }
             } else {
-                console.error('Verification failed!', response.error);
+                // console.error('Verification failed!', response.error);
             }
 
 

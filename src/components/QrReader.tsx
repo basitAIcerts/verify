@@ -38,13 +38,13 @@ const QrReader = ({ apiData, setApiData }) => {
     let scanResponse = "No URL found"
     setScannedResult(result?.data);
     const scannedUrl = result.data 
-    console.log('scannedResult',scannedUrl);
+    // console.log('scannedResult',scannedUrl);
 
     if (scannedUrl) {
         try {
           const url = scannedUrl;
           const paramValue = url.split('=')[1];
-          console.log(paramValue);
+          // console.log(paramValue);
             // First API call with QR Scanned data
            try{
             const qrScanResponse = await axios.post(`${apiUrl}/api/decode-qr-scan`, {
@@ -56,8 +56,8 @@ const QrReader = ({ apiData, setApiData }) => {
             });
             if (qrScanResponse.status === 200) {
                 const responseData = qrScanResponse.data;
-                console.log("The response", responseData.data);
-                console.log("The response", responseData?.details?.url);
+                // console.log("The response", responseData.data);
+                // console.log("The response", responseData?.details?.url);
                 setApiData({
                   // @ts-ignore: Implicit any for children prop
                   Details: responseData?.Details,
@@ -68,7 +68,7 @@ const QrReader = ({ apiData, setApiData }) => {
             }
 
            } catch (error:any) {
-             console.log("Error", error.response.data);
+            //  console.log("Error", error.response.data);
              if(error.response.data.message === 'Certification has revoked') {
                 router.push('/certificate-revoked');
              } else{
@@ -90,7 +90,7 @@ const QrReader = ({ apiData, setApiData }) => {
             setData(scanResponse);
             setStartScan(false);
         } catch (error) {
-            console.error("Error during API call:", error);
+            // console.error("Error during API call:", error);
             scanFailed = true; // Set flag to true if the scan failed
         }
     }
@@ -100,7 +100,7 @@ const QrReader = ({ apiData, setApiData }) => {
   // Fail
   const onScanFail = (err: string | Error) => {
     // 🖨 Print the "err" to browser console.
-    console.log(err);
+    // console.log(err);
   };
 
   useEffect(() => {
@@ -135,6 +135,7 @@ const QrReader = ({ apiData, setApiData }) => {
         scanner?.current?.stop();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ❌ If "camera" is not allowed in browser permissions, show an alert.

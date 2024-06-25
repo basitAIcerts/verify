@@ -56,7 +56,7 @@ const UploadCertificate = () => {
             setApiData(responseData);
 
         } catch (error) {
-            console.error('Error Verifying Certificate:', error);
+            // console.error('Error Verifying Certificate:', error);
             // Handle error
         } finally {
             setIsLoading(false);
@@ -64,7 +64,7 @@ const UploadCertificate = () => {
 
     }
 
-    console.log(apiData)
+    // console.log(apiData)
 
     // @ts-ignore: Implicit any for children prop
     const handleFileChange = async (event) => {
@@ -143,7 +143,7 @@ const UploadCertificate = () => {
                         else{
                             router.push('/invalid-certificate')
                         }
-                        console.error('Error during API calls:', errorData.message);
+                        // console.error('Error during API calls:', errorData.message);
                         setLoginError(errorData.message || "Unable to verify the certification. Please review and try again.");
                         setShow(true)
                         // Handle error as needed
@@ -155,7 +155,7 @@ const UploadCertificate = () => {
                 setShow(true)
             }
         } catch (error) {
-            console.error('Error during API calls:', error);
+            // console.error('Error during API calls:', error);
             setLoginError("Unable to verify the certification. Please review and try again.")
             setShow(true)
             // Handle error as needed

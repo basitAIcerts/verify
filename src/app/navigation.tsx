@@ -2,18 +2,18 @@ import { logout } from '@/common/auth';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 import React from 'react';
-
+import { useRouter } from 'next/router';
 
 const Navigation = () => {
-
+  const router = useRouter();
   const handleLogoClick = () => {
-    window.location.reload(); // Reload the page
+    router.push('/');
   };
  
   return (
     <>
       <nav className="global-header navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
+        <div className="container-fluid"> 
           <div onClick={handleLogoClick} className='nav-logo'>
             <Link className="navbar-brand" href="/">
               <Image
