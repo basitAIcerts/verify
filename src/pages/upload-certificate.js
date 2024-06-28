@@ -136,11 +136,11 @@ const UploadCertificate = () => {
                         // Both API calls failed, handle errors
                         const errorData = await fileResponse.json();
                         if(errorData.message=='Certification has revoked') {
-                            console.log(errorData.message)
+                            // console.log(errorData.message)
                             router.push('/certificate-revoked')
                         }
                         else if(errorData.message=='Certification is not valid') {
-                            console.log(errorData.message)
+                            // console.log(errorData.message)
                             router.push('/invalid-certificate')
                         }
                         //failed to interact with blockchain network

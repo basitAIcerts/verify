@@ -74,7 +74,6 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
         let shareUrl = apiData?.Details?.url;
         if(shareUrl) {
              shareUrl = shareUrl.replace('/verify-documents', '');
-             console.log(shareUrl)
         }
         
     const shareTitle =  apiData?.message || "Ai Certification";
