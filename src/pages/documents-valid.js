@@ -78,7 +78,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
         
     const shareTitle =  apiData?.message || "Ai Certification";
 
-    const title = 'Test title';
+    const title = 'Ai Certificate';
     const description = 'Test description';
     const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 
