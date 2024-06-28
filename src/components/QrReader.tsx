@@ -44,7 +44,7 @@ const QrReader = ({ apiData, setApiData }) => {
         try {
           const url = scannedUrl;
           const paramValue = url.split('=')[1];
-          debugger
+          // debugger
           // console.log(paramValue);
           // console.log(paramValue);
             // First API call with QR Scanned data
