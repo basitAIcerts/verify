@@ -25,7 +25,7 @@ const InvalidCertificate = () => {
                         <div className='container-fluid'>
                             <Button className='back-btn' label='Back' onClick={handlebackRedirect} />
                             <Row className="justify-content-center mt-4 verify-documents">
-                                <h1 className='title text-center'>Your Certification is Invalid.</h1>
+                                <h1 className='title text-center'>Certification Number and PDF is required</h1>
                                 <Col md={{ span: 10 }}>
                                     <Card className='p-4'>
                                         <div className='badge-banner'>

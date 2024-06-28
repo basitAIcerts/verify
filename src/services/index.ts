@@ -13,8 +13,8 @@ const API = (config: AxiosRequestConfig) => {
     if (token != null) {
       config.headers = {
         ...config.headers,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Origin": serverConfig.ALLOW_ORIGIN,
+        "Access-Control-Allow-Methods": serverConfig.ALLOW_METHODS,
         Authorization: "Bearer " + token,
       };
     }

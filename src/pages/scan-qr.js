@@ -4,7 +4,6 @@ import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import Image from 'next/image';
 import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
-import QRScan from '../components/qr-scanner';
 import QrReader from '@/components/QrReader';
 import DocumentsValid from '../../src/pages/documents-valid';
 import certificate from '@/services/certificateServices';
@@ -177,7 +176,7 @@ const ScanDocuments = () => {
             </>
         ) : (
         <>
-            {/* <Navigation /> */}
+            <Navigation />
             <div className='page-bg'>
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>

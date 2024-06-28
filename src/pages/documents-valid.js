@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Form, Row, Col, Card, Modal, ProgressBar, Button, InputGroup } from 'react-bootstrap';
+import { Form, Row, Col, Card, Modal, ProgressBar, Button} from 'react-bootstrap';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 import Head from 'next/head';
@@ -74,8 +74,10 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
         let shareUrl = apiData?.Details?.url;
         if(shareUrl) {
              shareUrl = shareUrl.replace('/verify-documents', '');
+             console.log(shareUrl)
         }
-    const shareTitle =  apiData?.message || "Certification is Valid";
+        
+    const shareTitle =  apiData?.message || "Ai Certification";
 
     const title = 'Test title';
     const description = 'Test description';
