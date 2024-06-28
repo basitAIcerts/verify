@@ -29,6 +29,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <meta name="twitter:image" content={"https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png"} />
                 <title>{shareTitle}</title>
                 <meta name="description" content={shareDescription} />
+        <link rel="icon" href="https://images.netcomlearning.com/ai-certs/favIcon.svg" />
             </Head>
       <Component {...pageProps} router={router} />
     </>
