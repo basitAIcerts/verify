@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navigation from '@/app/navigation';
-import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
+import { Form, Row, Col, Card } from 'react-bootstrap';
 import Image from 'next/image';
 import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ const RevokedCertificate = () => {
                         <div className='container-fluid'>
                             <Button className='back-btn' label='Back' onClick={handlebackRedirect}/>
                             <Row className="justify-content-center mt-4 verify-documents">
-                                <h1 className='title text-center'>Your Certification has been Revoked.</h1>
+                                <h1 className='title text-center'>Your Certification has been revoked.</h1>
                                 <Col md={{ span: 10 }}>
                                     <Card className='p-4'>
                                         <div className='badge-banner'>

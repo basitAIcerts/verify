@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Form, Row, Col, Card, Modal, ProgressBar, Button, InputGroup } from 'react-bootstrap';
+import { Form, Row, Col, Card, Modal, ProgressBar, Button} from 'react-bootstrap';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 import Head from 'next/head';
@@ -75,9 +75,10 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
         if(shareUrl) {
              shareUrl = shareUrl.replace('/verify-documents', '');
         }
-    const shareTitle =  apiData?.message || "Certification is Valid";
+        
+    const shareTitle =  apiData?.message || "Ai Certification";
 
-    const title = 'Test title';
+    const title = 'Ai Certificate';
     const description = 'Test description';
     const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 

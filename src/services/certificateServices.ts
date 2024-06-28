@@ -1,11 +1,10 @@
 import API from "./index";
-import { serverConfig } from "../config/server-config";
-
+import {SUCCESS, ERROR} from "./constants";
 
 
 // Define the expected response structure for the registration API call
 interface Response {
-  status: "SUCCESS" | "ERROR";
+  status: typeof SUCCESS | typeof ERROR;
   data?: any;
   error?: any;
   message?: any
@@ -29,10 +28,10 @@ const verifyCertificate = (data: any, callback: (response: Response) => void) =>
     },
   })
     .then((response) => {
-      callback({ status: "SUCCESS", data: response.data });
+      callback({ status: SUCCESS, data: response.data });
     })
     .catch((error) => {
-      callback({ status: "ERROR", error: error });
+      callback({ status: ERROR, error: error });
     });
 };
 
@@ -43,10 +42,10 @@ const verifyCertificatePDF = (data: any, callback: (response: Response) => void)
     data:data,
   })
     .then((response) => {
-      callback({ status: "SUCCESS", data: response.data });
+      callback({ status: SUCCESS, data: response.data });
     })
     .catch((error) => {
-      callback({ status: "ERROR", error: error });
+      callback({ status: ERROR, error: error });
     });
 };
 

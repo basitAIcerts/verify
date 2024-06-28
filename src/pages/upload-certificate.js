@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import DocumentsValid from '../../src/pages/documents-valid';
 import Image from 'next/image';
-import certificate from "../services/certificateServices";
 import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
 
@@ -123,26 +122,29 @@ const UploadCertificate = () => {
                         method: "POST",
                         body: formData,
                     });
-
                     if (fileResponse.ok) {
                         const fileData = await fileResponse.json();
                         if (fileData.Details["Certificate Number"] === certificateNumber) {
-
                             setApiData(fileData);
                         } else {
-                            router.push('/invalid-certificate')
+                            // Certificate Number and Certificate PDF doesn't match
+                            router.push('/mismatch-certificate')
                             setLoginError("Certificate Number and Certificate PDF doesn't match")
                             setShow(true)
                         }
                     } else {
                         // Both API calls failed, handle errors
-                          const errorData = await fileResponse.json();
+                        const errorData = await fileResponse.json();
                         if(errorData.message=='Certification has revoked') {
+                            // console.log(errorData.message)
                             router.push('/certificate-revoked')
                         }
-                        else{
+                        else if(errorData.message=='Certification is not valid') {
+                            // console.log(errorData.message)
                             router.push('/invalid-certificate')
                         }
+                        //failed to interact with blockchain network
+                        router.push('/unable-certificate')
                         // console.error('Error during API calls:', errorData.message);
                         setLoginError(errorData.message || "Unable to verify the certification. Please review and try again.");
                         setShow(true)
@@ -151,11 +153,13 @@ const UploadCertificate = () => {
                 }
             } else {
                 // Handle error as needed
+                router.push('/required-certificate')
                 setLoginError("Certification Number and PDF is required")
                 setShow(true)
             }
         } catch (error) {
             // console.error('Error during API calls:', error);
+            router.push('/unable-certificate')
             setLoginError("Unable to verify the certification. Please review and try again.")
             setShow(true)
             // Handle error as needed
@@ -164,31 +168,6 @@ const UploadCertificate = () => {
         }
     };
 
-
-
-    // useEffect(() => {
-    //     // Extract encrypted link from the URL
-    //     const urlParams = new URLSearchParams(window.location.search);
-    //     const qValue = urlParams.get('q');
-    //     const ivValue = urlParams.get('iv');
-
-    //     if (qValue && ivValue) {
-    //         handleVerifyCertificate(qValue, ivValue);
-    //         setRendered(true)
-    //     } else {
-    //         setRendered(true)
-    //     }
-    // }, []);
-
- 
-
-    
-
-    // if (!rendered) {
-    //     return (
-    //         <></>
-    //     );
-    // }
 
     return (
 
@@ -270,14 +249,6 @@ const UploadCertificate = () => {
                                                     <div className='information text-center'>
                                                         Only <strong>PDF</strong> is supported. <br /> (Upto 2 MB)
                                                     </div>
-                                                    {/* <div className='d-flex justify-content-center align-items-center'>
-                                                        <label
-                                                            onClick={handleSubmit}
-                                                            className={`golden-upload-cert ${selectedFile ? 'has-file' : ''}`}
-                                                        >
-                                                            Verify
-                                                        </label>
-                                                    </div> */}
 
                                                 </Form >
                                             </Card>
@@ -316,40 +287,6 @@ const UploadCertificate = () => {
                                             <ProgressBar now={progress} label={`${progress}%`} />
                                         </Modal.Body>
                                     </Modal>
-
-                                    {/* <Modal onHide={handleClose} className='loader-modal text-center' show={show} centered>
-                                        <Modal.Body className='p-5'>
-                                            {loginError !== '' ? (
-                                                <>
-                                                    <div className='error-icon'>
-                                                        <Image
-                                                            src="/icons/invalid-password.gif"
-                                                            layout='fill'
-                                                            objectFit='contain'
-                                                            alt='Loader'
-                                                        />
-                                                    </div>
-                                                    <div className='text' style={{ color: '#ff5500' }}>{loginError}</div>
-                                                    <button className='warning' onClick={handleClose}>Ok</button>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <div className='error-icon success-image'>
-                                                        <Image
-                                                            src="/icons/check-mark.svg"
-                                                            layout='fill'
-                                                            objectFit='contain'
-                                                            alt='Loader'
-                                                        />
-                                                    </div>
-                                                    <div className='text' style={{ color: '#198754' }}>{loginSuccess}</div>
-                                                    <button className='success' onClick={handleClose}>Ok</button>
-                                                </>
-                                            )}
-
-
-                                        </Modal.Body>
-                                    </Modal> */}
                                 </div>
                             </div>
                         </div>
