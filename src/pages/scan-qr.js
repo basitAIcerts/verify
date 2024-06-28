@@ -176,7 +176,7 @@ const ScanDocuments = () => {
             </>
         ) : (
         <>
-            <Navigation />
+            {/* <Navigation /> */}
             <div className='page-bg'>
                 <div className='position-relative h-100'>
                     <div className='vertical-center verify-cert'>
