@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Row, Col, Card, Modal, ProgressBar } from 'react-bootstrap';
 import DocumentsValid from '../../src/pages/documents-valid';
 import Image from 'next/image';
 import Button from '../../shared/button/button';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import MetaContext from '../utils/metaContext';
 
 const UploadCertificate = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +17,8 @@ const UploadCertificate = () => {
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
     const [show, setShow] = useState(false);
+    const [shareUrl, setShareUrl] = useState(false);
+    const {certificate,setCertificate } = useContext(MetaContext);
 
     const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -53,7 +57,8 @@ const UploadCertificate = () => {
             const responseData = await response.json();
             // Assuming response is in JSON format
             setApiData(responseData);
-
+            setCertificate(responseData)
+            setShareUrl(responseData)
         } catch (error) {
             // console.error('Error Verifying Certificate:', error);
             // Handle error
@@ -107,6 +112,8 @@ const UploadCertificate = () => {
                         Details: certificateData?.details,
                         message: certificateData?.message
                     });
+                    setCertificate(certificateData);
+                    
                 } else {
 
                     const errorData = await certificateResponse.json();
@@ -126,6 +133,7 @@ const UploadCertificate = () => {
                         const fileData = await fileResponse.json();
                         if (fileData.Details["Certificate Number"] === certificateNumber) {
                             setApiData(fileData);
+                            setCertificate(fileData);
                         } else {
                             // Certificate Number and Certificate PDF doesn't match
                             router.push('/mismatch-certificate')
@@ -167,11 +175,28 @@ const UploadCertificate = () => {
             setIsLoading(false);
         }
     };
+    const shareTitle =  apiData?.message || "Ai Certification";
+
+    const title = 'Ai Certificate';
+    const description = 'Test description';
+    const image = 'https://images.netcomlearning.com/ai-certs/cer365AllPageBg.png';
 
 
     return (
 
         <>
+           <Head>
+                <title>{title}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:url" content={shareUrl} />
+                <meta property="og:type" content='website' />
+            </Head>
             {apiData ? (
                 <>
                     <DocumentsValid handleFileChange={handleFileChange} apiData={apiData} isLoading={isLoading} />
