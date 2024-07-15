@@ -40,7 +40,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={shareTitle} />
                 <meta name="twitter:description" content={shareDescription} />
-                <meta name="twitter:image" content={certificate.details.url} />
+                <meta name="twitter:image" content={certificate.details.certificateUrl} />
                 <title>{shareTitle}</title>
                 <meta name="description" content={shareDescription} />
         <link rel="icon" href="https://images.netcomlearning.com/ai-certs/favIcon.svg" />
