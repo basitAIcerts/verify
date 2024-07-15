@@ -185,7 +185,7 @@ const UploadCertificate = () => {
     return (
 
         <>
-           <Head>
+           {/* <Head>
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <meta property="og:title" content={title} />
@@ -196,7 +196,7 @@ const UploadCertificate = () => {
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:url" content={certificate.details.url} />
                 <meta property="og:type" content='website' />
-            </Head>
+            </Head> */}
             {apiData ? (
                 <>
                     <DocumentsValid handleFileChange={handleFileChange} apiData={apiData} isLoading={isLoading} />
