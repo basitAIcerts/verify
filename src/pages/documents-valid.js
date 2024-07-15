@@ -85,7 +85,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
     return (
         <>
           
-           <Head>
+           {/* <Head>
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <meta property="og:title" content={title} />
@@ -96,7 +96,7 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookI
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:url" content={shareUrl} />
                 <meta property="og:type" content='website' />
-            </Head>
+            </Head> */}
 
             <div className='page-bg'>
                 <div className='position-relative h-100'>

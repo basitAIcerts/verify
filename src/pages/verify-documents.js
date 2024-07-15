@@ -52,7 +52,7 @@ console.log(apiData,"data")
     },[apiData])
     return (
         <div>
-            <Head>
+            {/* <Head>
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <meta property="og:title" content={title} />
@@ -63,7 +63,7 @@ console.log(apiData,"data")
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:url" content={certificate?.details?.url} />
                 <meta property="og:type" content='website' />
-            </Head>
+            </Head> */}
             <Navigation />
             <UploadCertificate
             // @ts-ignore: Implicit any for children prop
